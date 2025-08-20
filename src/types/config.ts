@@ -54,6 +54,7 @@ export type NavBarLink = {
 	name: string;
 	url: string;
 	external?: boolean;
+	icon?: string; // 新增
 };
 
 export type NavBarConfig = {
@@ -68,6 +69,8 @@ export type ProfileConfig = {
 		name: string;
 		url: string;
 		icon: string;
+		popup?: boolean; // 新增
+		popupImage?: string; // 新增
 	}[];
 };
 

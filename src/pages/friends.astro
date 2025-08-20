@@ -1,0 +1,69 @@
+---
+import { getEntry, render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+import friends from "../data/friends.json";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+// 读取 Content Collections 中的 friends.md（与 about 同套路）
+const entry = await getEntry("spec", "friends");
+if (!entry) {
+	throw new Error(
+		"Friends page content not found: make sure src/content/spec/friends.md exists",
+	);
+}
+const { Content } = await render(entry);
+
+// 标题/描述优先取 frontmatter，没有就用默认
+const title = entry.data.title ?? "友情链接";
+const description = entry.data.description ?? "互相串门～欢迎交换友链";
+---
+
+<MainGridLayout title={title} description={description}>
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+      <!-- 上半部：Markdown 正文（自动获得 prose + 暗色反色） -->
+      <Markdown class="mt-2">
+        <Content />
+      </Markdown>
+
+      <!-- 下半部：数据驱动卡片；不走 prose，使用 Tailwind 的明暗色类 -->
+      <section aria-label="friends list" class="not-prose mt-4">
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {friends.map((f) => (
+            <a
+              href={f.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-center gap-4 rounded-xl border p-4 transition hover:shadow
+                     border-neutral-200 dark:border-neutral-800
+                     bg-white/70 dark:bg-neutral-900/70
+                     text-neutral-900 dark:text-neutral-100"
+            >
+              <img
+                src={f.avatar}
+                alt={f.name}
+                width="48"
+                height="48"
+                loading="lazy"
+                class="h-12 w-12 rounded-full object-cover"
+              />
+              <div class="min-w-0">
+                <!-- 主文字：明暗自适应 -->
+                <div class="font-semibold truncate group-hover:underline">
+                  {f.name}
+                </div>
+                <!-- 次要信息：更浅一档 -->
+                <div class="text-sm truncate text-neutral-600 dark:text-neutral-400">
+                  {f.desc}
+                </div>
+                <div class="text-xs truncate text-neutral-500 dark:text-neutral-500">
+                  {f.url}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</MainGridLayout>

@@ -29,3 +29,7 @@ yarn.lock
 # ide
 .idea
 *.iml
+node_modules/
+dist/
+.astro/
+*.log
