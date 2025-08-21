@@ -3,7 +3,7 @@ title: 用户思维、借力与表达
 published: 2025-08-16
 description: "在创作的价值在于方向与创意，而非技能堆砌。在 AI 不断吞噬专业壁垒的当下，真正值得投入的，是思考、表达，以及“作为人”的独特视角。"
 image: ""
-tags: ["Fuwari", "Blogging", "Customization"]
+tags: ["认知", "方法论", "创作与表达"]
 category: 多懂一点点
 draft: false
 ---

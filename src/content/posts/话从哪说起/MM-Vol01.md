@@ -3,7 +3,7 @@ title: 经典还能站得住脚吗？
 published: 2025-07-18
 description: "在一切质疑中，我们仍可以相信感受。"
 image: ""
-tags: ["Fuwari", "Blogging", "Customization"]
+tags: ["文化感悟", "审美体验", "文学", "艺术"]
 category: 话从哪说起
 draft: false
 ---

@@ -3,7 +3,7 @@ title: "while(at 练秋湖）{ 01: Hello, HUAWEI! }"
 published: 2025-08-16
 description: "每一个伟大背后，都有一个微不足道的开始。"
 image: ""
-tags: ["Fuwari", "Blogging", "Customization"]
+tags: ["实习记录", "日常"]
 category: 瞬间备忘录
 draft: false
 ---
