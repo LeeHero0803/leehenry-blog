@@ -3,10 +3,11 @@
 	"type": "module",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "astro dev",
+		"dev": "pnpm run gen:stats && astro dev",
 		"start": "astro dev",
 		"check": "astro check",
-		"build": "astro build && pagefind --site dist",
+		"gen:stats": "node scripts/gen-stats.mjs",
+		"build": "pnpm gen:stats && astro build && pagefind --site dist",
 		"preview": "astro preview",
 		"astro": "astro",
 		"type-check": "tsc --noEmit --isolatedDeclarations",

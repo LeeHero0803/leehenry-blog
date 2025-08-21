@@ -44,7 +44,7 @@
 
 ---
 
-::github{repo="LeeHero0803/LeeHero0803.github.io"}
+::github{repo="LeeHero0803/leehenry-blog"}
 
 
 
