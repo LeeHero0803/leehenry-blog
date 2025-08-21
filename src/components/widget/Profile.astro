@@ -5,8 +5,6 @@ import { url } from "../../utils/url-utils";
 import ImageWrapper from "../misc/ImageWrapper.astro";
 
 const config = profileConfig;
-
-// 弹窗二维码默认图（可被每个 link 的 popupImage 覆盖）
 const fallbackQR = "/wechat-qrcode.png";
 ---
 
@@ -43,14 +41,12 @@ const fallbackQR = "/wechat-qrcode.png";
     <!-- 社交图标：支持 popup（弹二维码） -->
     <div class="flex gap-2 justify-center mb-1">
       {
-        // 多个链接：逐个渲染（带弹窗判断）
         config.links.length > 1
           ? config.links.map((item) => (
               item?.popup
                 ? (
                   <button
                     type="button"
-                    rel="me"
                     aria-label={item.name}
                     class="btn-regular rounded-lg h-10 w-10 active:scale-90"
                     data-qr-trigger
@@ -74,12 +70,10 @@ const fallbackQR = "/wechat-qrcode.png";
                 )
             ))
           : (
-            // 只有一个链接：保留原有“大按钮”样式，同时兼容 popup
             config.links[0]?.popup
               ? (
                 <button
                   type="button"
-                  rel="me"
                   aria-label={config.links[0].name}
                   class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95"
                   data-qr-trigger
@@ -109,35 +103,18 @@ const fallbackQR = "/wechat-qrcode.png";
   </div>
 </div>
 
-<!-- 弹窗：支持打开/关闭动画 + 背景渐暗 -->
-<dialog id="profile-qr-modal" class="rounded-2xl p-0">
-  <!-- 内容容器：宽度限制在 90vw，最大 400px，高度不固定 -->
-  <div
-    id="profile-qr-content"
-    class="bg-white dark:bg-neutral-900 p-4 sm:p-6 rounded-2xl
-           transform transition-all duration-220 ease-out
-           scale-95 opacity-0
-           max-w-[90vw] w-full sm:w-auto sm:max-w-[400px]"
-  >
-    <!-- 图片：宽度 100%（受容器限制），高度自适应 -->
+<!-- 弹窗 -->
+<dialog id="profile-qr-modal" class="modal">
+  <div id="profile-qr-content" class="modal-card">
     <img id="profile-qr-img"
          src="/wechat-qrcode.png"
          alt="二维码"
-         class="w-full h-auto object-contain mx-auto" />
-
-    <!-- <p class="text-center mt-3 text-neutral-700 dark:text-neutral-300">
-      长按/扫描二维码关注我！
-    </p> -->
-
-    <div class="mt-4 flex justify-center">
-      <button type="button" id="profile-qr-close"
-        class="px-4 py-2 rounded-lg bg-[var(--primary)] text-white hover:opacity-90">
-        关闭
-      </button>
+         class="qr-img" />
+    <div class="btn-row">
+      <button type="button" id="profile-qr-close" class="btn-close">关闭</button>
     </div>
   </div>
 </dialog>
-
 
 <script is:inline>
   const modal = document.getElementById('profile-qr-modal');
@@ -145,70 +122,108 @@ const fallbackQR = "/wechat-qrcode.png";
   const img = document.getElementById('profile-qr-img');
   const closeBtn = document.getElementById('profile-qr-close');
 
-  // 打开：先 showModal，再触发内容放大淡入 & 背景渐暗动画
+  // 打开
   document.addEventListener('click', (e) => {
     const btn = e.target.closest?.('[data-qr-trigger]');
     if (!btn) return;
-
     e.preventDefault();
+
     const src = btn.getAttribute('data-qr-src') || '/wechat-qrcode.png';
     img.setAttribute('src', src);
 
     modal.showModal();
-    // 添加类名，驱动 ::backdrop 的 CSS 动画
     modal.classList.remove('is-closing');
+    // 强制 reflow
+    content.offsetHeight;
     modal.classList.add('is-open');
-
-    // 下一帧把内容从 scale-95/opacity-0 过渡到 100/100
-    requestAnimationFrame(() => {
-      content.classList.remove('scale-95', 'opacity-0');
-      content.classList.add('scale-100', 'opacity-100');
-    });
   });
 
+  // 关闭
   function animateClose() {
-    // 内容淡出缩小
-    content.classList.remove('scale-100', 'opacity-100');
-    content.classList.add('scale-95', 'opacity-0');
-
-    // 背景渐亮
+    if (!modal.open) return;
     modal.classList.remove('is-open');
     modal.classList.add('is-closing');
-
-    // 等待动画结束再真正关闭（保持与 CSS 动画时长一致）
-    setTimeout(() => modal.close(), 220);
   }
 
   closeBtn?.addEventListener('click', animateClose);
 
-  // 点击遮罩关闭（点击对话框外部区域）
+  // 点击遮罩关闭
   modal?.addEventListener('click', (e) => {
-    const r = modal.getBoundingClientRect();
+    const r = content.getBoundingClientRect();
     if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
       animateClose();
     }
   });
+
+  // 动画结束时真正关闭
+  content.addEventListener('transitionend', (ev) => {
+    if (ev.propertyName === 'opacity' && modal.classList.contains('is-closing')) {
+      modal.close();
+      modal.classList.remove('is-closing', 'is-open');
+    }
+  });
+
+  // 页面离开时兜底关闭
+  window.addEventListener('pagehide', () => {
+    if (modal.open) modal.close();
+    modal.classList.remove('is-open', 'is-closing');
+  });
 </script>
 
 <style is:global>
-  /* 初始：无背景（避免 showModal 瞬间全黑） */
-  dialog::backdrop {
-    background: rgba(0,0,0,0);
+  /* 基础 */
+  .modal {
+    padding: 0;
+    border: none;
+    background: transparent;
+    pointer-events: none;
   }
-  /* 打开时：背景从 0 → 0.5 渐暗 */
-  dialog.is-open::backdrop {
-    animation: backdrop-in 220ms ease-out forwards;
+  .modal[open] {
+    display: grid;
+    place-items: center;
+    inset: 0;
+    pointer-events: auto;
   }
-  /* 关闭时：背景从 0.5 → 0 渐亮 */
-  dialog.is-closing::backdrop {
-    animation: backdrop-out 220ms ease-in forwards;
+
+  /* 背景 */
+  .modal::backdrop { background: rgba(0,0,0,0); }
+  .modal.is-open::backdrop {
+    animation: backdrop-in 220ms cubic-bezier(.2,.8,.2,1) forwards;
   }
-  @keyframes backdrop-in {
-    from { background: rgba(0,0,0,0); }
-    to   { background: rgba(0,0,0,0.5); }
+  .modal.is-closing::backdrop {
+    animation: backdrop-out 200ms ease-in forwards;
   }
-  @keyframes backdrop-out {
-    from { background: rgba(0,0,0,0.5); }
-    to   { background: rgba(0,0,0,0); }
+  @keyframes backdrop-in   { from { background: rgba(0,0,0,0); } to { background: rgba(0,0,0,.5); } }
+  @keyframes backdrop-out  { from { background: rgba(0,0,0,.5); } to { background: rgba(0,0,0,0); } }
+
+  /* 内容卡片 */
+  .modal-card {
+    max-width: min(90vw, 420px);
+    width: 100%;
+    margin: 0 16px;
+    border-radius: 16px;
+    background: var(--card-bg, white);
+    color: inherit;
+    padding: 1rem 1rem 0.875rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+
+    transform: scale(.96);
+    opacity: 0;
+    transition: transform 220ms cubic-bezier(.2,.8,.2,1), opacity 220ms ease-out;
+    will-change: transform, opacity;
   }
+  .modal.is-open .modal-card {
+    transform: scale(1);
+    opacity: 1;
+  }
+  .modal.is-closing .modal-card {
+    transform: scale(.96);
+    opacity: 0;
+    transition-duration: 180ms;
+  }
+
+  /* 图片与按钮 */
+  .qr-img { display:block; width:100%; height:auto; max-height:80vh; object-fit:contain; border-radius:8px; background:transparent; }
+  .btn-row { display:flex; justify-content:center; margin-top:0.875rem; }
+  .btn-close { padding:0.5rem 1rem; border-radius:10px; background:var(--primary); color:#fff; cursor:pointer; }
 </style>
