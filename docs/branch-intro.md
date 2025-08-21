@@ -33,7 +33,7 @@
 ## ⚡ 其他内容修改
 
 - 补充 `.gitignore`；
-- `package.json` 与 ``pnpm-lock.yaml` 增加图标包 ` "@iconify-json/simple-icons": "^1.2.48"`。
+- `package.json` 与 `pnpm-lock.yaml` 增加图标包 ` "@iconify-json/simple-icons": "^1.2.48"`。
 
 ---
 
