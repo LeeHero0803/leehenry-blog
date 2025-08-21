@@ -30,3 +30,6 @@ yarn.lock
 .idea
 *.iml
 *.log
+
+#backup
+*.gz
