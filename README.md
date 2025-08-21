@@ -2,7 +2,7 @@
 
 ### ⚡ 功能性增加特性
 
-- **网页页脚修改：**增加运行天数 / 总字词 / 访客量的统计集成。
+- **网页页脚修改**：增加运行天数 / 总字词 / 访客量的统计集成。
     - 通过修改 `src/components/Footer.astro` 来调整原页脚的文字；
     - 总字数统计的功能脚本在 `scripts/gen-stats.mjs`，脚本运行后统计的的数据生成 `stats.json`。运行 `dev` 和 `build` 前会先执行脚本来更新字词统计数据（修改 `package.json` 中 `"scripts"` 字段实现）
         - 构建时 import 用 → `src/data/stats.json`；运行时访问用 → `public/stats.json`
