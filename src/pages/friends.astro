@@ -28,7 +28,7 @@ const description = entry.data.description ?? "互相串门～欢迎交换友链
 
       <!-- 下半部：数据驱动卡片；不走 prose，使用 Tailwind 的明暗色类 -->
       <section aria-label="friends list" class="not-prose mt-4">
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
           {friends.map((f) => (
             <a
               href={f.url}

@@ -1,44 +1,30 @@
 [
 	{
-		"name": "示例 A",
-		"url": "https://a.example.com",
-		"desc": "写作 / 思考 / 技术",
-		"avatar": "/friends/demo-avatar.png"
+		"name": "伏枥之间",
+		"url": "https://leehenry.top/",
+		"desc": "莫听穿林打叶声，何妨吟啸且徐行",
+		"avatar": "/friends/my-avatar-portrait.jpg"
 	},
+
 	{
-		"name": "示例 B",
-		"url": "https://b.example.com",
-		"desc": "设计 / 产品 / 生活",
-		"avatar": "/friends/demo-avatar.png"
+		"name": "Lennox",
+		"url": "--",
+		"desc": "每一个伟大的背后都有一个微不足道的开始",
+		"avatar": "/friends/Lennox.jpg"
 	},
+
 	{
-		"name": "示例 C",
-		"url": "https://a.example.com",
-		"desc": "写作 / 思考 / 技术",
-		"avatar": "/friends/demo-avatar.png"
+		"name": "ZYBlog",
+		"url": "https://blog.pljzy.top/",
+		"desc": "一个技术探索与分享的平台",
+		"avatar": "/friends/ZYBlog.webp"
 	},
+
 	{
-		"name": "示例 D",
-		"url": "https://b.example.com",
-		"desc": "设计 / 产品 / 生活",
-		"avatar": "/friends/demo-avatar.png"
-	},
-	{
-		"name": "示例 E",
-		"url": "https://a.example.com",
-		"desc": "写作 / 思考 / 技术",
-		"avatar": "/friends/demo-avatar.png"
-	},
-	{
-		"name": "示例 F",
-		"url": "https://b.example.com",
-		"desc": "设计 / 产品 / 生活",
-		"avatar": "/friends/demo-avatar.png"
-	},
-	{
-		"name": "示例 E",
-		"url": "https://b.example.com",
-		"desc": "设计 / 产品 / 生活",
+		"name": "有趣",
+		"url": "https://www.bilibili.com/video/BV1G8tpzuEvz",
+		"desc": "我起舞或隐匿，也想诚实仅此而已",
 		"avatar": "/friends/demo-avatar.png"
 	}
+
 ]

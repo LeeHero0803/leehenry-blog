@@ -1,7 +1,8 @@
 ---
 title: Markdown Example
 published: 2023-10-01
-description: A simple example of a Markdown blog post.
+description: 支持的 Markdown 特性显示测试。
+image: "./cover.jpeg"
 tags: ["显示测试", "博客搭建", "Markdown"]
 category: 野语不成篇
 draft: false

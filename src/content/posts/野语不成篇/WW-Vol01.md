@@ -1,7 +1,7 @@
 ---
 title: 博客开发与部署工作流
 published: 2025-08-25
-description: '记录一下博客从开发、写文到部署上限的工作流'
+description: '记录一下博客从开发、写文到部署上限的工作流。'
 image: ''
 tags: [博客搭建, 复盘总结, 开发]
 category: 野语不成篇
