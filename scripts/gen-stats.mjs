@@ -54,7 +54,7 @@ function walkDir(dir) {
 }
 
 function formatDateToBeijing(date) {
-	const offset = 8 * 60; // 东八区，单位：分钟
+	// const offset = 8 * 60; // 东八区，单位：分钟
 	// const local = new Date(date.getTime() + offset * 60 * 1000);
 	const local = new Date(date.getTime());
 	const pad = (n) => String(n).padStart(2, "0");
