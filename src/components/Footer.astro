@@ -2,7 +2,7 @@
 import stats from "../data/stats.json";
 
 // 建站日期：改成你的建站日
-const LAUNCH = new Date("2025-08-20T00:00:00+08:00");
+const LAUNCH = new Date("2025-07-18T00:00:00+08:00");
 const days = Math.floor((Date.now() - LAUNCH.getTime()) / 86400000);
 
 const thisYear = new Date().getFullYear();
@@ -12,12 +12,17 @@ const totalHuman =
 	(typeof stats?.totalZhChars === "number" ? `${stats.totalZhChars} 字` : null);
 ---
 
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3NEsX27WdZN8t0MQ",ck:"3NEsX27WdZN8t0MQ"})</script>
+
 <footer class="site-footer">
   <div class="footer-row">
     <span>自 2025 年启程，已走过 {days} 天</span>
     <span class="sep">/</span>
     <span>集 {totalPosts ?? "—"} 篇，合 {totalHuman ?? "—"}</span>
-    <span class="sep">/</span>
+  </div>
+
+  <div class="footer-row">
     <span>最后落笔于 {stats.generatedAt}</span>
   </div>
 

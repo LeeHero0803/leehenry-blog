@@ -1,30 +1,37 @@
 [
 	{
 		"name": "伏枥之间",
-		"url": "https://leehenry.top/",
+		"url": "https://leehenry.top",
 		"desc": "莫听穿林打叶声，何妨吟啸且徐行",
 		"avatar": "/friends/my-avatar-portrait.jpg"
 	},
 
 	{
-		"name": "Lennox",
-		"url": "--",
-		"desc": "每一个伟大的背后都有一个微不足道的开始",
+		"name": "secrun",
+		"url": "https://sec.run",
+		"desc": "一切伟大的行动和思想，都有一个微不足道的开始",
 		"avatar": "/friends/Lennox.jpg"
 	},
 
 	{
 		"name": "ZYBlog",
-		"url": "https://blog.pljzy.top/",
+		"url": "https://blog.pljzy.top",
 		"desc": "一个技术探索与分享的平台",
 		"avatar": "/friends/ZYBlog.webp"
 	},
 
 	{
-		"name": "有趣",
-		"url": "https://www.bilibili.com/video/BV1G8tpzuEvz",
-		"desc": "我起舞或隐匿，也想诚实仅此而已",
-		"avatar": "/friends/demo-avatar.png"
+		"name": "AL_1S",
+		"url": "https://www.cnblogs.com/mumujun12345",
+		"desc": "AL_1Sのblog",
+		"avatar": "/friends/AL_1S.jpg"
+	},
+
+	{
+		"name": "RhoPaperの小站",
+		"url": "https://rhopaper.top",
+		"desc": "纸至执",
+		"avatar": "/friends/RhoPaper.png"
 	}
 
 ]

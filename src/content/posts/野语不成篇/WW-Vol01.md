@@ -1,268 +1,167 @@
 ---
-title: 博客开发与部署工作流
+title: 个人数码资产清单小记
 published: 2025-08-25
-description: '记录一下博客从开发、写文到部署上限的工作流。'
+description: '盘点了一下目前现役的数码资产投入，以此开始，未来个人财务规划的第一步。'
 image: ''
-tags: [博客搭建, 复盘总结, 开发]
+tags: [财务, 盘点, 数码]
 category: 野语不成篇
 draft: false
 ---
 
-上次基于 GitHub Pages 部署博客在两年前，写作流程有些复杂，过了一段时间后甚至完全忘记如何恢复环境。这一次从 0 开始重新部署，我更加注重**环境可迁移性**与**自动化**，并做好流程复盘，方便追溯。
+## [1] 设备清单 (Equipment List)
 
-下面记录了我在 Fuwari 博客模板基础上改造的开发与上线工作流。无论是换电脑、重装环境还是切换域名，都可以按照这里的步骤快速恢复写作与部署，让「写一篇文章 → 推送 Git → 一键上线」成为顺畅的日常。
+### 🔊 音频设备 (Audio Equipment)
 
-## 一、本地开发流程
+- **Edifier M230 Speakers**
+    - Price: ¥349 ｜Purchased: 2024-04-23
+- **Sony WH-1000XM3 Wireless Noise-Canceling Headphones**
+    - Price: ¥1599 ｜Purchased: 2021-04-03
+- **Apple AirPods (4th Gen, Active Noise Cancellation)**
+    - Price: ¥1399 ｜Purchased: 2024-09-27
 
-### 1. 初始化环境（仅首次或换电脑时）
+### 💾 存储设备 (Storage Devices)
 
-- 先安装好 [Node.js](https://nodejs.org/zh-cn) 的 **LTS 版本**（建议 `20.x`）；
-- 安装好 Node.js 后，使用 `pnpm`（替代 npm，速度更快，磁盘占用更少）。如果未安装，先运行：
+- **Seagate ST4000VX015 HDD, 4TB**
+    - Price: ¥598 ｜Purchased: 2025-08-25
+- **Western Digital Blue HDD, 1TB**
+    - Price: ¥270 ｜Purchased: 2019-07-27
+- **ZhiTai TiPlus7100 Gen4 SSD, 1TB**
+    - Price: ¥448 ｜Purchased: 2023-07-12
+- **Toolfree External Enclosure (USB 3.0, 5Gbps)**
+    - Price: ¥178 ｜Purchased: 2025-08-25
 
-```powershell
-npm install -g pnpm
-```
+### 📱 智能手机 (Smartphones)
 
-进入项目目录并安装依赖：
+- **Apple iPhone 12 mini (4GB + 128GB)**
+    - Price: ¥1228 ｜Purchased: 2024-09-26
+- **Vivo X100 Pro (16GB + 512GB)**
+    - Price: ¥4666 ｜Purchased: 2024-05-04
 
-```powershell
-cd YOUR\PATH\TO\leehenry-blog
-pnpm install
-```
+### 📷 摄影器材 (Photography Gear)
 
-结果：生成 `node_modules/` 文件夹，包含 Astro、Tailwind 等依赖。
+- **DJI Action 5 Pro**
+    - Price: ¥1750 ｜Purchased: 2025-07-17
+- **Nikon Z30 Camera Body**
+    - Price: ¥4600 ｜Purchased: 2024-10-22
+- **Nikkor Z DX 16-50mm f/3.5-6.3 Lens (Kit Lens)**
+    - Price: ¥630 ｜Purchased: 2024-10-22
+- **Nikkor Z DX 50-250mm f/4.5-6.3 Lens**
+    - Price: ¥1800 ｜Purchased: 2024-10-24
+- **Viltrox AF 56mm f/1.7 Z-Mount Lens**
+    - Price: ¥650 ｜Purchased: 2025-05-21
+- **Godox TT860II Camera Flash**
+    - Price: ¥566 ｜Purchased: 2025-02-20
 
-### 2. 启动本地开发
+### 💻 笔记本与平板 (Laptops & Tablets)
 
-```powershell
-pnpm dev
-```
+- **Lenovo ThinkBook 14+ (Intel i5-12500H)**
+    - Price: ¥5299 ｜Purchased: 2023-08-20
+- **Apple iPad 9 (Wi-Fi, 64GB)** + **Apple Pencil (1st Gen)**
+    - Price: ¥2439 + ¥330 ｜Purchased: 2023-02-13
 
-- 启动 Vite 开发服务器，浏览器访问 [http://localhost:4321](http://localhost:4321/)。
-- 修改文章/样式/配置文件后页面会自动热更新。
+### 🖥️ 台式电脑 (Desktop PC, Custom Build)
 
-### 3. 写文章 / 改配置
+- **CPU**: Intel Core i5-13490F (13th Gen)  
+- **Motherboard**: ASUS B760M-AYW WiFi D4  
+- **GPU**: ASUS NVIDIA GeForce RTX 4060 Ti, 8GB  
+- **RAM**: Corsair DDR4 3200MHz, 16GB ×2 (32GB Total)  
+- **Monitor**: XMI XMI27A1 Mi Monitor, 27"  
+- **Case**: Jonsbo Z20  
+- **PSU**: Antec BP450  
+- **Cooler**: Thermalright Frozen Magic 240 ARGB  
+- **Fans**: Thermalright 120mm ×3  
+    - **Total Build Cost**: ¥6459 ｜Assembled: 2024-09-13
 
-#### 3.1 新建文章
+### 🖱️ 外设设备 (Peripherals)
 
-**方案一 · 自动化脚本**
+- **Razer Basilisk V3 Gaming Mouse**
+    - Price: ¥209 ｜Purchased: 2023-11-11
+- **Akko Ducky 3108 Mechanical Keyboard**
+    - Price: ¥359 ｜Purchased: 2019-07-27
+- **Sony PlayStation 5 DualSense Edge Controller**
+    - Price: ¥463 ｜Purchased: 2023-12-28
 
-在 `/leehenry-blog` 项目文件夹下借助脚本自动生成文章 Markdown 文件和同级图片目录。
+### 🔌 充电电源 (Chargers & Power)
 
-```bash
-# 语法
-pnpm run new-post <栏目> <目录名> [-t "标题"]
+- **Anker Zolo GaN Charger, 140W (4 Ports, PPS / PD3.1 / UFCS, with PD3.1 Cable, 240W 1.5m)**  
+  + Price: ¥268 ｜Purchased: 2025-03-10
+- **Lenovo Original PD Laptop Adapter, 100W (20V 5A)**  
+    - Price: ¥178 ｜Purchased: 2022-10-27
 
-# 示例：我这样做事 / HT-Vol02
-pnpm run new-post 我这样做事 HT-Vol02 -t "效率系统二次迭代"
-
-# 示例：野语不成篇（支持别名 wild/yy）
-pnpm run new-post wild YY-Vol01 -t "零散片语"
-```
-
-生成结构：
-
-```bash
-src/content/posts/我这样做事/
-  HT-Vol02/         ← 图片文件夹（放 cover.jpg 等）
-  HT-Vol02.md       ← 文章文件
-```
-
-front-matter 自动写入：
-
-```yaml
 ---
-title: 效率系统二次迭代
-published: 2025-08-25
-description: ''
-image: ''
-tags: []
-category: 我这样做事
-draft: false
-lang: ''
----
-```
 
-> [!tip]
->
-> 封面图推荐放在同级文件夹，如 `./HT-Vol02/cover.jpg`，然后在 front-matter 写：`image: ./HT-Vol02/cover.jpg`
+## [2] 投入分析 (Investment Analysis)
 
-> 支持的栏目（可用中文或别名）：
->
-> | 中文栏目   | 别名                    |
-> | ---------- | ----------------------- |
-> | 野语不成篇 | ["wild", "yy", "WW"]    |
-> | 多懂一点点 | ["sense", "dd", "SS"]   |
-> | 我这样做事 | ["hack", "wz", "HT"]    |
-> | 瞬间备忘录 | ["moment", "sj", "MMs"] |
-> | 话从哪说起 | ["mind", "hc", "MM"]    |
+- **总件数**：23 件
+- **主要大类投入占比**：
+    - **Desktop PC（custom build）**：¥6459（≈19%）
+    - **Photography & Camera Gear**：¥9946（≈29%）
+    - **Smartphones**：¥5894（≈17%）
+    - **Audio Equipment**：¥3347（≈10%）
+    - **Storage Devices**：¥1494（≈4%）
+    - **Peripherals**：¥1031（≈3%）
+    - **Laptops & Tablets**：¥8059（≈24%）
+    - **Chargers & Power**：¥446（≈1%）
 
-**方案二 · 手动创建文章**
+👉 **摄影器材 + 笔记本/平板 + 手机** 依旧是消费主力，占比超过 70%。
 
-- 在 `src/content/posts/<栏目>/` 下新建 `title.md`，同目录的同名文件夹放置图片。
-- 在文章的开始需要自行填写 front-matter 才能正常解析。
+------
 
-#### 3.2 修改配置
+### 明细表（按 2025-08-26 计算）
 
-- 修改 `src/config.ts`（站点标题、头像、导航栏）
-- 修改 `friends.json`（友链）
+<iframe width="402" height="346" frameborder="0" scrolling="no" src="https://1drv.ms/x/c/94ddfdd8fdb83e7c/IQSQAGIUbRgNR6hrjWFFkqDdARxzqpk1iFcwt8ZeZkt7kyA?wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"></iframe>
 
-### 4. Git 管理
+| Category                  | Item                          | Price (¥) | Purchase Date | Days Since Purchase | Daily Cost (¥/day) |
+| ------------------------- | ----------------------------- | --------- | ------------- | ------------------- | ------------------ |
+| Audio Equipment           | Edifier M230 Speakers         | 349       | 2024-04-23    | 491                 | 0.71               |
+|                           | Sony WH-1000XM3               | 1599      | 2021-04-03    | 1236                | 1.29               |
+|                           | AirPods 4 (ANC)               | 1399      | 2024-09-27    | 334                 | 4.19               |
+| Laptops & Tablets         | Lenovo ThinkBook 14+          | 5299      | 2023-08-20    | 737                 | 7.19               |
+|                           | iPad 9 + Apple Pencil         | 2769      | 2023-02-13    | 925                 | 3.00               |
+| Storage Devices           | Seagate HDD 4TB               | 598       | 2025-08-25    | 1                   | –                  |
+|                           | WD Blue 1TB                   | 270       | 2019-07-27    | 2221                | 0.12               |
+|                           | ZhiTai SSD 1TB                | 448       | 2023-07-12    | 775                 | 0.58               |
+|                           | Toolfree HDD Enclosure        | 178       | 2025-08-25    | 1                   | –                  |
+| Camera Gear               | DJI Action 5 Pro              | 1750      | 2025-07-17    | 40                  | 43.75              |
+|                           | Nikon Z30                     | 4600      | 2024-10-22    | 308                 | 14.94              |
+|                           | Nikkor Z DX 16-50mm           | 630       | 2024-10-22    | 308                 | 2.05               |
+|                           | Nikkor Z DX 50-250mm          | 1800      | 2024-10-24    | 306                 | 5.88               |
+|                           | Viltrox AF 56mm f/1.7         | 650       | 2025-05-21    | 96                  | 6.77               |
+|                           | Godox TT860II Flash           | 566       | 2025-02-20    | 186                 | 3.04               |
+| Peripherals               | Razer Basilisk V3             | 209       | 2023-11-11    | 652                 | 0.32               |
+|                           | Akko Ducky 3108 Keyboard      | 359       | 2019-07-27    | 2221                | 0.16               |
+|                           | PS5 DualSense Edge Controller | 463       | 2023-12-28    | 605                 | 0.77               |
+| Desktop PC (Custom Build) | Assembled Build               | 6459      | 2024-09-13    | 347                 | 18.61              |
+| Smartphones               | iPhone 12 mini                | 1228      | 2024-09-26    | 334                 | 3.67               |
+|                           | Vivo X100 Pro                 | 4666      | 2024-05-04    | 479                 | 9.74               |
+| Chargers & Power          | Anker Zolo GaN Charger 140W   | 268       | 2025-03-10    | 169                 | 1.59               |
+|                           | Lenovo PD Laptop Adapter 100W | 178       | 2022-10-27    | 1034                | 0.17               |
 
-#### 4.1 最小化工作流
+> *Days Since Purchase 按今天 **2025-08-24** 算。（当日购入的算 0 天，暂不计日均。）
 
-```powershell
-git add -A
-git commit -m "feat: 新增文章《xxx》"
-git push
-```
+## [3] 总结 (Summary)
 
-#### 4.2 常见命令
+- **总投入金额** (Total Investment)：
 
-- 查看改动：
+    - ¥34,273
 
-```powershell
-git status
-```
+- **平均使用天数** (Average Lifetime per Device)：
 
-- 提交改动：
+    - ≈ 710 天
 
-```powershell
-git add -A
-git commit -m "feat(nav): add icons for nav links"
-```
+- **折算日均花费** (Overall Daily Cost)：
 
-- 推送到远端：
+    - ≈ ¥48.3 / day
 
-```powershell
-git push
-```
+- **最高日均花费设备** (Top Daily Cost Items)：
 
-#### 4.3 Commit type 参考
+    - DJI Action 5 Pro: ¥43.8/day（因购入时间短导致虚高）
 
-| 类型     | 用途说明               | 示例                            |
-| -------- | ---------------------- | ------------------------------- |
-| feat     | 新功能、新模块         | `feat: 新增友链页面`            |
-| fix      | 修复 bug               | `fix: 修复二维码不显示的问题`   |
-| docs     | 文档修改               | `docs: 更新 README`             |
-| style    | 格式修改（不影响逻辑） | `style: 调整 friends.json 排版` |
-| refactor | 重构优化（不改功能）   | `refactor: 优化导航栏组件结构`  |
-| perf     | 性能优化               | `perf: 提升图片加载速度`        |
-| chore    | 配置/依赖/脚本等杂项   | `chore: 升级依赖`               |
+        Nikon Z30: ¥15/day
 
-#### 4.4 同步模板作者更新
+        Desktop PC: ¥18.6/day
 
-```powershell
-git remote add upstream https://github.com/saicaca/fuwari.git
-git fetch upstream
-git checkout main
-git merge upstream/main
-```
+- **性价比最高** (Most Cost-Efficient Assets)：
 
-结果：将模板作者的更新合并到你的仓库，解决冲突后即可使用。
-
-### 5. 构建网站（生成静态文件）
-
-```powershell
-pnpm build
-```
-
-- Astro 会输出静态 HTML/CSS/JS 文件到 `dist/` 目录。
-- 本地预览打包结果：
-
-```powershell
-pnpm preview
-```
-
-## 二、远端部署流程
-
-### 1. 配置免密登录（仅首次或换新电脑时）
-
-```powershell
-ssh-keygen -t ed25519 -C "your_email@example.com"
-type %USERPROFILE%\.ssh\id_ed25519.pub | ssh -p 22 root@YOUR_SERVER_IP "umask 077; mkdir -p ~/.ssh; cat >> ~/.ssh/authorized_keys"
-```
-
-验证：
-
-```powershell
-ssh -i %USERPROFILE%\.ssh\id_ed25519 -p 22 root@YOUR_SERVER_IP "echo ok"
-```
-
-出现 `ok` 即免密成功。
-
-### 2. 部署上线
-
-#### 方案 1：一键脚本
-
-```powershell
-deploy.bat
-```
-
-步骤包含：
-
-1. 远端备份旧版本（保留 `.well-known` / `.user.ini`）
-2. 打包 `dist/`
-3. 上传并解压到远端目录
-4. 修正文件权限
-5. 完成后即可通过域名访问
-
-#### 方案 2：手动上传
-
-1. 本地执行 `pnpm build`
-2. 将 `dist/` 内的内容打包上传到远程目录 `/www/wwwroot/yourdomain.com/`
-3. 设置文件权限（755 文件夹，644 文件）
-
-## 三、域名绑定与迁移
-
-- 修改 DNS 解析：在阿里云 / 宝塔面板中，将域名解析到服务器 IP。
-- 修改 Nginx 配置：在宝塔 → 网站 → 域名管理，绑定新域名并启用 SSL。
-- 博客代码无需改动，部署脚本仍可直接使用。
-
-## 四、开发/写作到上线的最简流程
-
-**新建文章**
-
-```powershell
-pnpm run new-post 我这样做事 HT-Vol02
-```
-
-→ 自动生成 `HT-Vol02.md` 和 `HT-Vol02/` 图片文件夹，在 md 中写文即可。
-
-**本地预览**
-
-```powershell
-pnpm dev
-```
-
-**提交并推送**
-
-```powershell
-git add -A
-git commit -m "feat: 新文章《效率系统二次迭代》"
-git push
-```
-
-**部署上线**
-
-```powershell
-deploy.bat
-```
-
-## 五、常见问题
-
-### 1. astro 模块消失问题
-
-**场景：在 dev/build 的时候报错找不到 astro 模块，`node_modules` 下的 `astro` 莫名其妙消失，**
-
-```bash
-Error: Cannot find module '...\leehenry-blog\node_modules\astro\astro.js'
-```
-
-解决：重装一下就好了。在项目目录下执行：
-
-```powershell
-pnpm install
-pnpm build
-```
+    - 长期使用的外设与老设备（机械键盘、WD HDD），日均成本趋近于零。
 
