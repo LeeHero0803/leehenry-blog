@@ -28,7 +28,7 @@ pnpm run new-post 我这样做事 HT-Vol02
 pnpm dev
 ```
 
-**提交并推送**
+**\*提交并推送**（可选，已与 `deploy.bat` 脚本集成）
 
 ```powershell
 git add -A
@@ -266,3 +266,85 @@ pnpm install
 pnpm build
 ```
 
+## 附 | `deploy.bat` 使用介绍
+
+### 📌 脚本简介
+
+这是一个一键部署脚本，适用于 **Windows 环境**，主要功能包括：
+
+1. **本地构建**：调用 `pnpm build` 或 `npm run build` 生成静态资源。
+2. **远端部署**：自动备份远端站点 → 清理旧文件 → 上传并解压新版本 → 修正权限。
+3. **版本管理**：在本地仓库执行 `git add / commit / push`，支持自定义提交信息。
+4. **失败重试**：每个步骤独立，如果失败只需重试该步骤，而不是整个流程。
+5. **代理支持**：可选仅为 Git 推送设置代理（适合国内环境，上传服务器走直连，GitHub 推送走代理）。
+
+### ⚙️ 使用方法
+
+1. 将脚本命名为 `deploy.bat`，放在和 `leehenry-blog` 同级目录下。
+
+    ```
+    project-root/
+    ├─ leehenry-blog/         # 博客源码目录
+    ├─ deploy.bat             # 部署脚本
+    ```
+
+2. 双击运行或在命令行执行：
+
+    ```cmd
+    deploy
+    ```
+
+3. 脚本会依次执行构建、上传、远端解压和推送 Git。
+
+运行时会显示每个步骤的耗时与日志，失败时可以选择：
+
+- `R` → 仅重试该步骤
+- `E` → 退出脚本
+
+### 🛠️ 可配置项
+
+在脚本开头（CONFIG 区域）可修改以下配置：
+
+- **部署参数**
+
+    ```bash
+    set "HOST=39.104.64.173"              REM 远端服务器 IP
+    set "PORT=22"                         REM SSH 端口
+    set "USER=root"                       REM SSH 用户
+    set "REMOTE_DIR=/www/wwwroot/39.104.64.173"   REM 部署目录
+    set "WWW_USER=www"                    REM 文件属主
+    set "WWW_GROUP=www"                   REM 文件属组
+    set "KEY=%USERPROFILE%\.ssh\id_ed25519"       REM SSH 私钥路径
+    ```
+
+- **Git 代理（仅影响 HTTPS 推送，不影响 SSH）**
+
+    ```bash
+    set "GIT_PROXY_ENABLE=1"              REM 1=启用，0=禁用
+    set "GIT_PROXY_URL=http://127.0.0.1:2020"
+    ```
+
+- **其它**
+
+    ```bash
+    set "PAUSE_AT_END=1"                  REM 脚本结束后是否暂停
+    set "BACKUP=1"                        REM 是否自动备份远端旧版本
+    ```
+
+### 💡 使用场景
+
+- **正常部署**：直接运行脚本，自动完成全流程。
+- **修改提交信息**：在 Step 8 时输入自定义 commit message，按回车则默认 `"feat: update new posts"`。
+- **跳过 Git 代理**：将 `GIT_PROXY_ENABLE=0`，或把仓库远程改为 SSH 地址。
+- **失败重试**：如果某一步失败，输入 `R` 仅重试该步骤，无需从头再跑。
+
+### ❓ 常见问题
+
+- **Q: 为什么 Git 推送时报错？**
+     A: 检查远程 URL 是否是 **HTTPS**，只有 HTTPS 才会走代理。SSH (`git@...`) 推送不会使用 HTTP 代理。
+- **Q: 我不想每次都用代理怎么办？**
+     A: 修改脚本，把 `GIT_PROXY_ENABLE=0`。
+- **Q: 远端文件夹会不会清空？**
+     A: 是的，会清理目标目录下的文件，但保留 `.well-known` 和 `.user.ini`。如果需要更多保留文件，请在 Step 3 修改规则。
+- **Q: 构建工具找不到怎么办？**
+     A: 脚本会优先尝试 `pnpm`，若未安装则 fallback 到 `npm run build`。
