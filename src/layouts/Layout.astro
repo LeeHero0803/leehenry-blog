@@ -3,15 +3,13 @@ import "@fontsource-variable/jetbrains-mono";
 import "@fontsource-variable/jetbrains-mono/wght-italic.css";
 import "@fontsource/noto-color-emoji/emoji.css";
 
-import ConfigCarrier from "@components/ConfigCarrier.astro";
-import { profileConfig, siteConfig } from "@/config";
+import { expressiveCodeConfig, profileConfig, siteConfig } from "@/config";
 import {
 	AUTO_MODE,
 	BANNER_HEIGHT,
 	BANNER_HEIGHT_EXTEND,
 	BANNER_HEIGHT_HOME,
 	DARK_MODE,
-	DEFAULT_THEME,
 	LIGHT_MODE,
 	PAGE_WIDTH,
 } from "../constants/constants";
@@ -40,7 +38,6 @@ const isHomePage = pathsEqual(Astro.url.pathname, url("/"));
 
 // defines global css variables
 // why doing this in Layout instead of GlobalStyles: https://github.com/withastro/astro/issues/6728#issuecomment-1502203757
-const themeFixed = siteConfig.theme.fixed;
 const themeDefault = siteConfig.theme.default;
 if (!banner || typeof banner !== "string" || banner.trim() === "") {
 	banner = siteConfig.banner.src;
@@ -114,18 +111,9 @@ const bannerOffset =
 		))}
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
-		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, themeFixed, themeDefault}}>
-			// Load the theme from local storage or use fixed theme default
-			// 优先使用 localStorage 中的值（如果存在）
-			// 如果主题固定且没有存储值，使用配置中的默认主题
-			let theme = localStorage.getItem('theme');
-			if (!theme) {
-				if (themeFixed) {
-					theme = themeDefault;
-				} else {
-					theme = DEFAULT_THEME;
-				}
-			}
+		<script is:inline define:vars={{LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, themeDefault, ecTheme: expressiveCodeConfig.theme}}>
+			// 优先使用 localStorage，缺省时回退到 siteConfig.theme.default
+			let theme = localStorage.getItem('theme') || themeDefault;
 			switch (theme) {
 				case LIGHT_MODE:
 					document.documentElement.classList.remove('dark');
@@ -140,6 +128,9 @@ const bannerOffset =
 						document.documentElement.classList.remove('dark');
 					}
 			}
+
+			// Expressive Code theme is static; set once before first paint
+			document.documentElement.setAttribute('data-theme', ecTheme);
 
 			// calculate the --banner-height-extend, which needs to be a multiple of 4 to avoid blurry text
 			let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
@@ -190,7 +181,6 @@ const bannerOffset =
 				<feOffset dx="-3" dy="-3" in="1"/>
 			</filter>
 		</svg>
-		<ConfigCarrier></ConfigCarrier>
 		<slot />
 
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->

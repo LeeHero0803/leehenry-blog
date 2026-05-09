@@ -17,8 +17,7 @@ export type SiteConfig = {
 		| "id";
 
 	theme: {
-		fixed: boolean; // 是否固定主题模式
-		default: LIGHT_DARK_MODE; // 默认主题模式
+		default: LIGHT_DARK_MODE; // 首访默认主题
 	};
 	banner: {
 		enable: boolean;

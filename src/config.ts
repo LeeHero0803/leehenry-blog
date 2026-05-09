@@ -14,8 +14,7 @@ export const siteConfig: SiteConfig = {
 	subtitle: "WhistleWanderer",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	theme: {
-		fixed: true, // 是否固定主题模式（固定后用户无法切换）
-		default: DARK_MODE, // 默认主题模式：'light' | 'dark' | 'auto'
+		default: DARK_MODE, // 首访默认主题（无 localStorage 时）：'light' | 'dark' | 'auto'
 	},
 	banner: {
 		enable: true,
