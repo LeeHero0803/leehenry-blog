@@ -39,20 +39,7 @@ function getToggleBtnCenter() {
 	return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
 }
 
-function willBeDark(newMode: LIGHT_DARK_MODE): boolean {
-	if (newMode === DARK_MODE) return true;
-	if (newMode === LIGHT_MODE) return false;
-	return window.matchMedia("(prefers-color-scheme: dark)").matches;
-}
-
 function applyWithTransition(newMode: LIGHT_DARK_MODE) {
-	const currentlyDark = document.documentElement.classList.contains("dark");
-	// Skip transition when dark/light appearance won't change (e.g. dark → auto with dark system)
-	if (typeof document.startViewTransition !== "function" || currentlyDark === willBeDark(newMode)) {
-		setTheme(newMode);
-		return;
-	}
-
 	const { x, y } = getToggleBtnCenter();
 	const maxRadius = Math.hypot(
 		Math.max(x, window.innerWidth - x),
@@ -62,6 +49,10 @@ function applyWithTransition(newMode: LIGHT_DARK_MODE) {
 	document.documentElement.style.setProperty("--theme-y", `${y}px`);
 	document.documentElement.style.setProperty("--theme-radius", `${maxRadius}px`);
 
+	if (typeof document.startViewTransition !== "function") {
+		setTheme(newMode);
+		return;
+	}
 	document.startViewTransition(() => setTheme(newMode));
 }
 

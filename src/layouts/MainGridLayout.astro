@@ -106,7 +106,7 @@ const mainPanelTop = siteConfig.banner.enable
             </a>}
 
             <!-- Banner image credit (light mode) -->
-            {hasLightCredit && <a href={siteConfig.banner.creditLight!.url} id="banner-credit-light" target="_blank" rel="noopener" aria-label="Visit image source"
+            {hasLightCredit && <a href={siteConfig.banner.creditLight!.url} target="_blank" rel="noopener" aria-label="Visit image source"
                                    class:list={["group onload-animation transition-all absolute flex justify-center items-center " +
                                    "px-3 right-4 -top-[3.25rem] bg-black/60 hover:bg-black/70 h-9 dark:hidden",
                                    {"hover:pr-9 active:bg-black/80": hasBannerLightLink}]}

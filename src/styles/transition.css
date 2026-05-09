@@ -39,8 +39,7 @@ html.is-animating .transition-swup-fade {
 .footer {
     animation-delay: 250ms;
 }
-#banner-credit,
-#banner-credit-light {
+#banner-credit {
     animation-delay: 400ms;
 }
 
