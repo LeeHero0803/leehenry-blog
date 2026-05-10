@@ -374,7 +374,7 @@
 		"name": "資工小廢物 - JN",
 		"url": "https://blog.giveanornot.com/",
 		"desc": "資工系畢業，但其實沒有很會寫程式",
-		"avatar": "https://blog.giveanornot.com/img/avatar_hu_8a21430ccd887c92.png",
+		"avatar": "/friends/JN.png",
 		"category": "online"
 	},
 	{
@@ -390,5 +390,12 @@
 		"desc": "Weaving independent voices online",
 		"avatar": "/friends/ring.webp",
 		"category": "org"
+	},
+	{
+		"name": "甜鱼/Ayu",
+		"url": "https://ayu.land/",
+		"desc": "三脚猫多面手，努力学习世界的一切",
+		"avatar": "https://profile-content.hydev.org/content/generated/friends/img/Ayu%20%E7%94%9C%E9%B1%BC-avatar.jpg",
+		"category": "online"
 	}
 ]
