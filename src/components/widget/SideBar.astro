@@ -23,12 +23,22 @@ const isAboutRoute =
 const isFriendsRoute =
 	Astro.url.pathname === url("/friends") ||
 	Astro.url.pathname === url("/friends/");
-const isTocPage = isPostsRoute || isAboutRoute || isFriendsRoute;
+const guestsPrefix = url("/guests/");
+const isGuestsRoute = Astro.url.pathname.startsWith(guestsPrefix);
+// /guests/<author>/<slug>/ —— 仅文章详情页（≥2 段）启用 TOC
+const isGuestPostRoute =
+	isGuestsRoute &&
+	Astro.url.pathname
+		.slice(guestsPrefix.length)
+		.split("/")
+		.filter(Boolean).length >= 2;
+const isTocPage =
+	isPostsRoute || isAboutRoute || isFriendsRoute || isGuestPostRoute;
 const isNormalPage = !isTocPage && !isGalleryRoute;
 ---
 <div id="sidebar" class:list={[className, "w-full"]}>
     <!-- 非正文页：显示简介卡片 -->
-    {!isPostsRoute &&
+    {!isPostsRoute && !isGuestPostRoute &&
     <div class="flex flex-col w-full gap-4 mb-4">
         <Profile></Profile>
     </div>

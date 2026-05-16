@@ -1,0 +1,185 @@
+---
+import path from "node:path";
+import ImageWrapper from "@components/misc/ImageWrapper.astro";
+import Markdown from "@components/misc/Markdown.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import {
+    getGuestAuthorFromSlug,
+    getSortedGuestPosts,
+} from "@utils/content-utils";
+import { getDir, url } from "@utils/url-utils";
+import { Icon } from "astro-icon/components";
+import { titleSplitConfig } from "../../../config";
+import { formatDateToYYYYMMDD } from "../../../utils/date-utils";
+import { splitTitle } from "../../../utils/title-utils";
+
+export async function getStaticPaths() {
+    const entries = await getSortedGuestPosts();
+    return entries.map((entry) => {
+        const idx = entry.slug.indexOf("/");
+        const author = idx > 0 ? entry.slug.slice(0, idx) : "Anonymous";
+        const slug = idx > 0 ? entry.slug.slice(idx + 1) : entry.slug;
+        return {
+            params: { author, slug },
+            props: { entry },
+        };
+    });
+}
+
+const { entry } = Astro.props;
+const { Content, headings: rawHeadings } = await entry.render();
+const headings = rawHeadings.filter((h) => h.slug !== "footnote-label");
+
+const { remarkPluginFrontmatter } = await entry.render();
+
+const titleParts = titleSplitConfig.enable
+    ? splitTitle(entry.data.title)
+    : null;
+const suffixOpacity = titleSplitConfig.opacity;
+const suffixNewLine = titleSplitConfig.postPage.suffixNewLine;
+
+const author = getGuestAuthorFromSlug(entry.slug);
+const authorLink = entry.data.authorLink?.trim();
+---
+<MainGridLayout
+    banner={entry.data.image}
+    title={entry.data.title}
+    description={entry.data.description || `${author} 寄存于此的字句`}
+    lang={entry.data.lang}
+    setOGTypeArticle={true}
+    headings={headings}
+>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
+        <div id="post-container" class="card-base z-10 px-6 md:px-9 pt-6 pb-4 relative w-full">
+
+            <!-- 「客邸」回链与作者署名 -->
+            <div class="flex items-center gap-2 mb-4 text-50 text-sm onload-animation">
+                <a href={url("/guests/")} class="inline-flex items-center gap-1 hover:text-[var(--primary)] transition">
+                    <Icon name="material-symbols:chevron-left-sharp" class="text-base" />
+                    <span>客邸</span>
+                </a>
+                <span class="opacity-40">/</span>
+                <a href={url(`/guests/${author}/`)} class="hover:text-[var(--primary)] transition font-medium uppercase tracking-wide">
+                    {author}
+                </a>
+            </div>
+
+            <!-- title -->
+            <div class="relative onload-animation pr-6">
+                <div
+                    data-pagefind-body
+                    data-pagefind-weight="10"
+                    data-pagefind-meta="title"
+                    class="transition w-full block font-bold mb-3 text-center text-3xl md:text-[2.25rem]/[2.75rem] text-black/90 dark:text-white/90"
+                >
+                    {titleParts ? (
+                        <>
+                            <span class="post-title-text font-bold inline-block relative">{titleParts.prefix}</span>
+                            {suffixNewLine ? <br /> : <span class="font-bold">{titleParts.separator}</span>}
+                            <span class="font-normal font-serif" style={`opacity: ${suffixOpacity}; font-size: 1.5rem;`}>{titleParts.suffix}</span>
+                        </>
+                    ) : (
+                        <span class="post-title-text inline-block relative">{entry.data.title}</span>
+                    )}
+                </div>
+            </div>
+
+            <!-- metadata：日期 + 字数 -->
+            <div class="onload-animation pr-6 flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-neutral-500 dark:text-neutral-400 mb-5">
+                <div class="flex items-center">
+                    <div class="meta-icon">
+                        <Icon name="material-symbols:calendar-today-outline-sharp" class="text-xl" />
+                    </div>
+                    <time class="text-50 text-sm font-medium" datetime={entry.data.published.toISOString()}>
+                        {formatDateToYYYYMMDD(entry.data.published)}
+                    </time>
+                </div>
+                {entry.data.updated && entry.data.updated.getTime() !== entry.data.published.getTime() && (
+                    <div class="flex items-center">
+                        <div class="meta-icon">
+                            <Icon name="material-symbols:edit-calendar-outline-sharp" class="text-xl" />
+                        </div>
+                        <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(entry.data.updated)}</span>
+                    </div>
+                )}
+                <div class="flex items-center">
+                    <div class="meta-icon">
+                        <Icon name="material-symbols:notes-sharp" class="text-xl" />
+                    </div>
+                    <span class="text-50 text-sm font-medium">{remarkPluginFrontmatter.words} 字</span>
+                </div>
+                {entry.data.tags && entry.data.tags.length > 0 && (
+                    <div class="flex items-center">
+                        <div class="meta-icon">
+                            <Icon name="material-symbols:tag-sharp" class="text-xl" />
+                        </div>
+                        <div class="flex flex-row flex-nowrap items-center">
+                            {entry.data.tags.map((tag, i) => (
+                                <>
+                                    {i > 0 && <div class="mx-1.5 text-[var(--meta-divider)] text-sm">/</div>}
+                                    <span class="text-50 text-sm font-medium whitespace-nowrap">{tag.trim()}</span>
+                                </>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {!entry.data.image && (
+                <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5 onload-animation"></div>
+            )}
+
+            {entry.data.image && (
+                <ImageWrapper
+                    id="post-cover"
+                    src={entry.data.image}
+                    basePath={path.join("content/guests/", getDir(entry.id))}
+                    class="mb-8 rounded-xl banner-container onload-animation"
+                />
+            )}
+
+            {(() => {
+                const base = "mb-6 markdown-content onload-animation";
+                const cls = entry.data.serif === true ? `${base} font-serif` : base;
+                return (
+                    <Markdown class={cls}>
+                        <Content />
+                    </Markdown>
+                );
+            })()}
+
+            <!-- 文末作者落款 -->
+            <div class="onload-animation mt-8 pt-5 border-t border-dashed border-black/10 dark:border-white/[0.15] flex items-center justify-end gap-2 text-50">
+                <span class="font-serif text-sm" style="opacity: 0.7;">寄存于客邸 ·</span>
+                {authorLink ? (
+                    <a href={authorLink} target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary)] transition font-medium uppercase tracking-wide">
+                        {author}
+                    </a>
+                ) : (
+                    <a href={url(`/guests/${author}/`)} class="hover:text-[var(--primary)] transition font-medium uppercase tracking-wide">
+                        {author}
+                    </a>
+                )}
+            </div>
+        </div>
+    </div>
+</MainGridLayout>
+
+<style>
+    .post-title-text {
+        z-index: 0;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: -1rem;
+            width: calc(100% + 1.9rem);
+            height: 1.1rem;
+            background: var(--primary);
+            opacity: 0.3;
+            filter: url(#xerox);
+            z-index: -1;
+        }
+    }
+</style>

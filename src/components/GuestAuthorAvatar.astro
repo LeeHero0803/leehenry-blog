@@ -1,0 +1,39 @@
+---
+import ImageWrapper from "./misc/ImageWrapper.astro";
+
+interface Props {
+    name: string;
+    avatar?: string;
+    size?: "xs" | "sm" | "md" | "lg";
+    class?: string;
+}
+
+const { name, avatar, size = "md", class: className = "" } = Astro.props;
+
+const sizeMap = {
+    xs: "w-7 h-7 text-xs md:w-8 md:h-8 md:text-sm",
+    sm: "w-10 h-10 text-sm",
+    md: "w-14 h-14 text-xl",
+    lg: "w-20 h-20 text-3xl",
+};
+
+const sizeClass = sizeMap[size];
+const initial = (name?.trim()?.[0] ?? "?").toUpperCase();
+---
+
+{avatar ? (
+    <div class={`${sizeClass} rounded-full overflow-hidden shrink-0 ${className}`}>
+        <ImageWrapper
+            src={avatar}
+            alt={`${name} avatar`}
+            class="w-full h-full"
+            noFade={true}
+        />
+    </div>
+) : (
+    <div
+        class={`${sizeClass} rounded-full shrink-0 flex items-center justify-center font-bold text-white bg-[var(--primary)] select-none ${className}`}
+    >
+        {initial}
+    </div>
+)}

@@ -74,6 +74,7 @@ export const navBarConfig: NavBarConfig = {
 		{ name: "光影", url: "/gallery/", icon: "camera" },
 		{ name: "留心", url: "/guestbook/", icon: "mail" },
 		{ name: "友邻", url: "/friends/", icon: "smile" },
+		{ name: "客邸", url: "/guests/", icon: "quote" },
 		{ name: "一隅", url: "/about/", icon: "anchor" },
 		{
 			name: "开往",

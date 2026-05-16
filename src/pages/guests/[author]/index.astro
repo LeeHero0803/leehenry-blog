@@ -1,0 +1,70 @@
+---
+import GuestArchive from "@components/GuestArchive.astro";
+import GuestAuthorAvatar from "@components/GuestAuthorAvatar.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getGuestPostsByAuthor } from "@utils/content-utils";
+import { url } from "@utils/url-utils";
+import { Icon } from "astro-icon/components";
+import { getGuestAuthor } from "../../../data/guest-authors";
+
+export async function getStaticPaths() {
+    const groups = await getGuestPostsByAuthor();
+    return groups.map((group) => ({
+        params: { author: group.author },
+        props: { group },
+    }));
+}
+
+const { group } = Astro.props;
+const meta = getGuestAuthor(group.author);
+---
+
+<MainGridLayout
+    title={`${meta.name.toUpperCase()} · 客邸`}
+    description={meta.signature || `${meta.name} 寄存于客邸的字句。`}
+>
+    <div class="flex flex-col gap-4">
+        <!-- 作者头部卡片 -->
+        <section class="card-base px-6 md:px-9 py-6 onload-animation">
+            <!-- 回链 -->
+            <div class="mb-4">
+                <a
+                    href={url("/guests/")}
+                    class="inline-flex items-center gap-1 text-50 hover:text-[var(--primary)] transition text-sm"
+                >
+                    <Icon name="material-symbols:chevron-left-sharp" class="text-base" />
+                    <span>客邸</span>
+                </a>
+            </div>
+
+            <!-- 作者信息：头像在左，作者名 + 签名在右上下排布 -->
+            <div class="flex items-center gap-4">
+                <GuestAuthorAvatar
+                    name={meta.name}
+                    avatar={meta.avatar}
+                    size="md"
+                />
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-baseline gap-3 flex-wrap">
+                        <h1 class="text-3xl md:text-4xl font-bold text-90 uppercase tracking-wide">
+                            {meta.name}
+                        </h1>
+                        <span class="text-50 text-sm whitespace-nowrap ml-auto">
+                            {group.posts.length} 篇
+                        </span>
+                    </div>
+                    {meta.signature && (
+                        <div class="text-50 text-sm font-serif mt-1">
+                            {meta.signature}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </section>
+
+        <!-- 按年份归档 -->
+        <div class="onload-animation" style="animation-delay: calc(var(--content-delay) + 80ms);">
+            <GuestArchive posts={group.posts} />
+        </div>
+    </div>
+</MainGridLayout>

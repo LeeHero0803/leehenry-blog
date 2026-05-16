@@ -62,6 +62,41 @@ export async function getSortedPostsForFeeds() {
 
 	return sorted;
 }
+export function getGuestAuthorFromSlug(slug: string): string {
+	const idx = slug.indexOf("/");
+	return idx > 0 ? slug.slice(0, idx) : "Anonymous";
+}
+
+export async function getSortedGuestPosts() {
+	const allGuestPosts = await getCollection("guests", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+	return allGuestPosts.sort((a, b) => {
+		const dateA = new Date(a.data.published);
+		const dateB = new Date(b.data.published);
+		return dateA > dateB ? -1 : 1;
+	});
+}
+
+export type GuestGroup = {
+	author: string;
+	posts: CollectionEntry<"guests">[];
+};
+
+export async function getGuestPostsByAuthor(): Promise<GuestGroup[]> {
+	const sorted = await getSortedGuestPosts();
+	const byAuthor = new Map<string, CollectionEntry<"guests">[]>();
+	for (const post of sorted) {
+		const author = getGuestAuthorFromSlug(post.slug);
+		const list = byAuthor.get(author);
+		if (list) list.push(post);
+		else byAuthor.set(author, [post]);
+	}
+	return Array.from(byAuthor.entries())
+		.map(([author, posts]) => ({ author, posts }))
+		.sort((a, b) => a.author.localeCompare(b.author));
+}
+
 export type Tag = {
 	name: string;
 	count: number;
