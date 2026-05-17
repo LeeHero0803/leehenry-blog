@@ -9,7 +9,7 @@ const sortedPostsList = await getSortedPostsList();
 const postWords = postWordsRaw as { date: string; words: number }[];
 ---
 
-<MainGridLayout title="旧简">
+<MainGridLayout title="🗂️ 旧简">
   <section class="archive-heatmap">
     <Heatmap entries={postWords} client:only="svelte" cell={9} gap={2} />
   </section>
