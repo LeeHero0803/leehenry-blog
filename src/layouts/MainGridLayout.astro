@@ -36,7 +36,10 @@ const hasBannerCredit =
 	siteConfig.banner.enable && siteConfig.banner.credit.enable;
 const hasBannerLink = !!siteConfig.banner.credit.url;
 const hasBannerLightLink = !!siteConfig.banner.creditLight?.url;
-const hasLightCredit = hasBannerCredit && !!siteConfig.banner.srcLight && !!siteConfig.banner.creditLight;
+const hasLightCredit =
+	hasBannerCredit &&
+	!!siteConfig.banner.srcLight &&
+	!!siteConfig.banner.creditLight;
 const lqipDark = bannerLqip?.dark ?? null;
 const lqipLight = bannerLqip?.light ?? null;
 const bannerPos = siteConfig.banner.position || "center";

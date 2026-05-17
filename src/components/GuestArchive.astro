@@ -5,36 +5,36 @@ import { splitTitle } from "../utils/title-utils";
 import { getGuestPostUrlBySlug } from "../utils/url-utils";
 
 interface Props {
-    posts: CollectionEntry<"guests">[];
+	posts: CollectionEntry<"guests">[];
 }
 
 const { posts } = Astro.props;
 
 interface YearGroup {
-    year: number;
-    posts: CollectionEntry<"guests">[];
+	year: number;
+	posts: CollectionEntry<"guests">[];
 }
 
 const byYear = new Map<number, CollectionEntry<"guests">[]>();
 for (const post of posts) {
-    const year = new Date(post.data.published).getFullYear();
-    const arr = byYear.get(year);
-    if (arr) arr.push(post);
-    else byYear.set(year, [post]);
+	const year = new Date(post.data.published).getFullYear();
+	const arr = byYear.get(year);
+	if (arr) arr.push(post);
+	else byYear.set(year, [post]);
 }
 
 const groups: YearGroup[] = Array.from(byYear.entries())
-    .map(([year, ps]) => ({ year, posts: ps }))
-    .sort((a, b) => b.year - a.year);
+	.map(([year, ps]) => ({ year, posts: ps }))
+	.sort((a, b) => b.year - a.year);
 
 function formatDate(date: Date) {
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    return `${month}-${day}`;
+	const month = (date.getMonth() + 1).toString().padStart(2, "0");
+	const day = date.getDate().toString().padStart(2, "0");
+	return `${month}-${day}`;
 }
 
 function formatTags(tags: string[]) {
-    return tags.map((t) => `#${t}`).join(" ");
+	return tags.map((t) => `#${t}`).join(" ");
 }
 ---
 

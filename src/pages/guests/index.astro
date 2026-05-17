@@ -1,41 +1,30 @@
 ---
+import PageIntroCard from "@components/PageIntroCard.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getGuestPostsByAuthor } from "@utils/content-utils";
 import { url } from "@utils/url-utils";
 import { getGuestAuthor } from "../../data/guest-authors";
+import { pageIntros } from "../../data/page-intros";
 
+const intro = pageIntros.guests;
 const groups = await getGuestPostsByAuthor();
 const totalPosts = groups.reduce((sum, g) => sum + g.posts.length, 0);
 
 const authorCards = groups.map((group) => ({
-    group,
-    meta: getGuestAuthor(group.author),
-    authorUrl: url(`/guests/${group.author}/`),
+	group,
+	meta: getGuestAuthor(group.author),
+	authorUrl: url(`/guests/${group.author}/`),
 }));
 ---
 
-<MainGridLayout title="客邸" description="朋友们寄存于此的字句。">
+<MainGridLayout title={intro.title} description={intro.paragraphs[0]}>
     <div class="flex flex-col gap-4">
         <!-- 顶部介绍卡片 -->
-        <section class="card-base px-6 md:px-9 py-6 onload-animation">
-            <h1 class="text-2xl md:text-3xl font-bold text-90 mb-3">
-                客邸 <span class="font-normal font-serif text-xl text-50">· Guest House</span>
-            </h1>
-            <div class="border-t border-dashed border-black/10 dark:border-white/[0.15] mb-4"></div>
-            <p class="text-75 leading-relaxed">
-                这里收藏着几位好友的字句。
-            </p>
-            <p class="text-75 leading-relaxed mt-3">
-                它们原本住在各种社交平台。雨大风疏，我总怕某日醒来，一次软件停用或改版，让这些自有灵气的表达消弭在数字荒原深处。
-                经同意，我帮他们抄录在这里，存一份不依附于任何平台的副本。
-            </p>
-            <p class="text-75 leading-relaxed mt-3">
-                他们精神世界的一隅，在此独立成屋，门虚掩着。
-            </p>
-            <div class="mt-4 text-50 text-sm">
+        <PageIntroCard intro={intro}>
+            <div slot="stats" class="mt-4 text-50 text-sm">
                 当前共 <span class="text-[var(--primary)] font-medium">{groups.length}</span> 位作者，<span class="text-[var(--primary)] font-medium">{totalPosts}</span> 篇字句。
             </div>
-        </section>
+        </PageIntroCard>
 
         <!-- 作者卡片：只保留标题入口 -->
         {authorCards.map(({ group, meta, authorUrl }, idx) => (

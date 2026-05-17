@@ -2,19 +2,19 @@
 import ImageWrapper from "./misc/ImageWrapper.astro";
 
 interface Props {
-    name: string;
-    avatar?: string;
-    size?: "xs" | "sm" | "md" | "lg";
-    class?: string;
+	name: string;
+	avatar?: string;
+	size?: "xs" | "sm" | "md" | "lg";
+	class?: string;
 }
 
 const { name, avatar, size = "md", class: className = "" } = Astro.props;
 
 const sizeMap = {
-    xs: "w-7 h-7 text-xs md:w-8 md:h-8 md:text-sm",
-    sm: "w-10 h-10 text-sm",
-    md: "w-14 h-14 text-xl",
-    lg: "w-20 h-20 text-3xl",
+	xs: "w-7 h-7 text-xs md:w-8 md:h-8 md:text-sm",
+	sm: "w-10 h-10 text-sm",
+	md: "w-14 h-14 text-xl",
+	lg: "w-20 h-20 text-3xl",
 };
 
 const sizeClass = sizeMap[size];

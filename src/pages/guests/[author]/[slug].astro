@@ -4,8 +4,8 @@ import ImageWrapper from "@components/misc/ImageWrapper.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import {
-    getGuestAuthorFromSlug,
-    getSortedGuestPosts,
+	getGuestAuthorFromSlug,
+	getSortedGuestPosts,
 } from "@utils/content-utils";
 import { getDir, url } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
@@ -14,16 +14,16 @@ import { formatDateToYYYYMMDD } from "../../../utils/date-utils";
 import { splitTitle } from "../../../utils/title-utils";
 
 export async function getStaticPaths() {
-    const entries = await getSortedGuestPosts();
-    return entries.map((entry) => {
-        const idx = entry.slug.indexOf("/");
-        const author = idx > 0 ? entry.slug.slice(0, idx) : "Anonymous";
-        const slug = idx > 0 ? entry.slug.slice(idx + 1) : entry.slug;
-        return {
-            params: { author, slug },
-            props: { entry },
-        };
-    });
+	const entries = await getSortedGuestPosts();
+	return entries.map((entry) => {
+		const idx = entry.slug.indexOf("/");
+		const author = idx > 0 ? entry.slug.slice(0, idx) : "Anonymous";
+		const slug = idx > 0 ? entry.slug.slice(idx + 1) : entry.slug;
+		return {
+			params: { author, slug },
+			props: { entry },
+		};
+	});
 }
 
 const { entry } = Astro.props;
@@ -33,8 +33,8 @@ const headings = rawHeadings.filter((h) => h.slug !== "footnote-label");
 const { remarkPluginFrontmatter } = await entry.render();
 
 const titleParts = titleSplitConfig.enable
-    ? splitTitle(entry.data.title)
-    : null;
+	? splitTitle(entry.data.title)
+	: null;
 const suffixOpacity = titleSplitConfig.opacity;
 const suffixNewLine = titleSplitConfig.postPage.suffixNewLine;
 

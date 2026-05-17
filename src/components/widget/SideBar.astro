@@ -28,10 +28,8 @@ const isGuestsRoute = Astro.url.pathname.startsWith(guestsPrefix);
 // /guests/<author>/<slug>/ —— 仅文章详情页（≥2 段）启用 TOC
 const isGuestPostRoute =
 	isGuestsRoute &&
-	Astro.url.pathname
-		.slice(guestsPrefix.length)
-		.split("/")
-		.filter(Boolean).length >= 2;
+	Astro.url.pathname.slice(guestsPrefix.length).split("/").filter(Boolean)
+		.length >= 2;
 const isTocPage =
 	isPostsRoute || isAboutRoute || isFriendsRoute || isGuestPostRoute;
 const isNormalPage = !isTocPage && !isGalleryRoute;

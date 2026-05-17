@@ -1,8 +1,4 @@
-import {
-	AUTO_MODE,
-	DARK_MODE,
-	LIGHT_MODE,
-} from "@constants/constants.ts";
+import { AUTO_MODE, DARK_MODE, LIGHT_MODE } from "@constants/constants.ts";
 import { siteConfig } from "@/config";
 import type { LIGHT_DARK_MODE } from "@/types/config";
 

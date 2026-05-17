@@ -37,7 +37,10 @@ function applyWithTransition(newMode: LIGHT_DARK_MODE) {
 	);
 	document.documentElement.style.setProperty("--theme-x", `${x}px`);
 	document.documentElement.style.setProperty("--theme-y", `${y}px`);
-	document.documentElement.style.setProperty("--theme-radius", `${maxRadius}px`);
+	document.documentElement.style.setProperty(
+		"--theme-radius",
+		`${maxRadius}px`,
+	);
 
 	if (typeof document.startViewTransition !== "function") {
 		setTheme(newMode);

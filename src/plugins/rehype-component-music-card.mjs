@@ -46,7 +46,9 @@ export function MusicCardComponent(properties, children) {
 	const coverEl = h(`div#${id}-cover`, { class: "mc-cover" });
 	const coverWrapEl = h(
 		`div#${id}-cover-wrap`,
-		{ class: `mc-cover-wrap${isManual ? (isAlbum ? " mc-wrap-album" : " mc-wrap-single") : ""}` },
+		{
+			class: `mc-cover-wrap${isManual ? (isAlbum ? " mc-wrap-album" : " mc-wrap-single") : ""}`,
+		},
 		[coverEl],
 	);
 	const titleEl = h(

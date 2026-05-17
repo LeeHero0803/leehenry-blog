@@ -18,7 +18,7 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "assets/images/banner.webp",       // dark mode banner (or default). Relative to /src, or /public if starts with '/'
+		src: "assets/images/banner.webp", // dark mode banner (or default). Relative to /src, or /public if starts with '/'
 		srcLight: "assets/images/banner-light.gif", // light mode banner (optional)
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
@@ -73,8 +73,8 @@ export const navBarConfig: NavBarConfig = {
 		{ name: "旧简", url: "/archive/", icon: "archive" },
 		{ name: "光影", url: "/gallery/", icon: "camera" },
 		{ name: "留心", url: "/guestbook/", icon: "mail" },
-		{ name: "友邻", url: "/friends/", icon: "smile" },
 		{ name: "客邸", url: "/guests/", icon: "quote" },
+		{ name: "友邻", url: "/friends/", icon: "smile" },
 		{ name: "一隅", url: "/about/", icon: "anchor" },
 		{
 			name: "开往",

@@ -32,11 +32,26 @@ const { entry } = Astro.props;
 const { Content, headings: rawHeadings } = await entry.render();
 
 const AI_LEVELS = {
-	0: { label: "手自一心", range: "0~5% AI",   icon: "material-symbols:volunteer-activism-sharp", varName: "ai-badge-0" },
-	1: { label: "执一驭万", range: "5~20% AI",  icon: "material-symbols:swords-sharp",             varName: "ai-badge-1" },
-	2: { label: "借舟渡海", range: "20~50% AI", icon: "material-symbols:sailing-sharp",            varName: "ai-badge-2" },
+	0: {
+		label: "手自一心",
+		range: "0~5% AI",
+		icon: "material-symbols:volunteer-activism-sharp",
+		varName: "ai-badge-0",
+	},
+	1: {
+		label: "执一驭万",
+		range: "5~20% AI",
+		icon: "material-symbols:swords-sharp",
+		varName: "ai-badge-1",
+	},
+	2: {
+		label: "借舟渡海",
+		range: "20~50% AI",
+		icon: "material-symbols:sailing-sharp",
+		varName: "ai-badge-2",
+	},
 } as const;
-const headings = rawHeadings.filter(h => h.slug !== 'footnote-label');
+const headings = rawHeadings.filter((h) => h.slug !== "footnote-label");
 
 const { remarkPluginFrontmatter } = await entry.render();
 

@@ -34,12 +34,14 @@ const isLocal = !(
 );
 const isPublic = src.startsWith("/");
 
-const isLocalLight = srcLight && !(
-	srcLight.startsWith("/") ||
-	srcLight.startsWith("http") ||
-	srcLight.startsWith("https") ||
-	srcLight.startsWith("data:")
-);
+const isLocalLight =
+	srcLight &&
+	!(
+		srcLight.startsWith("/") ||
+		srcLight.startsWith("http") ||
+		srcLight.startsWith("https") ||
+		srcLight.startsWith("data:")
+	);
 const isPublicLight = srcLight?.startsWith("/");
 
 // TODO temporary workaround for images dynamic import

@@ -13,10 +13,12 @@ const postsCollection = defineCollection({
 		category: z.string().optional().nullable().default(""),
 		lang: z.string().optional().default(""),
 		serif: z.boolean().optional().default(false),
-		aiUsage: z.object({
-			level: z.union([z.literal(0), z.literal(1), z.literal(2)]),
-			description: z.string(),
-		}).optional(),
+		aiUsage: z
+			.object({
+				level: z.union([z.literal(0), z.literal(1), z.literal(2)]),
+				description: z.string(),
+			})
+			.optional(),
 
 		/* For internal use */
 		prevTitle: z.string().default(""),

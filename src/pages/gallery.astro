@@ -1,16 +1,46 @@
 ---
 import GalleryGrid from "@components/GalleryGrid.astro";
+import PageIntroCard from "@components/PageIntroCard.astro";
+import { Icon } from "astro-icon/components";
+import { pageIntros } from "../data/page-intros";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
-const title = "摄影";
-const description = "用镜头记录生活的瞬间";
+const intro = pageIntros.gallery;
 ---
 
-<MainGridLayout title={title} description={description}>
-  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-    <div class="card-base z-10 p-3 relative w-full">
-      <!-- 瀑布流图片 -->
-      <GalleryGrid currentCategory="all" />
+<MainGridLayout title={intro.title} description={intro.paragraphs[0]}>
+  <div class="flex flex-col gap-4">
+    <!-- 介绍卡片 -->
+    <PageIntroCard intro={intro} />
+
+    <!-- 洗牌按钮卡片：点击随机重排当前陈列 -->
+    <button
+      id="gallery-shuffle-btn"
+      type="button"
+      aria-label="打乱当前陈列，随机展示一批"
+      class="card-base group flex items-center gap-4 px-6 md:px-9 py-5 onload-animation transition
+             text-left w-full cursor-pointer
+             hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]"
+    >
+      <Icon
+        name="material-symbols:shuffle-sharp"
+        class="text-4xl text-[var(--primary)] shrink-0 transition-transform duration-300"
+      />
+      <div class="flex-1 min-w-0">
+        <div class="text-lg font-bold text-90 group-hover:text-[var(--primary)] transition">
+          物换星移
+        </div>
+        <div class="text-50 text-sm mt-0.5">
+          打乱时间线索，重编流动的记忆
+        </div>
+      </div>
+    </button>
+
+    <!-- 内容卡片：瀑布流 -->
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+      <div class="card-base z-10 p-3 relative w-full">
+        <GalleryGrid currentCategory="all" />
+      </div>
     </div>
   </div>
 </MainGridLayout>

@@ -3,20 +3,16 @@ import { getEntry, render } from "astro:content";
 import FriendCircle from "@components/FriendCircle.astro";
 import LikeButton from "@components/misc/LikeButton.svelte";
 import Markdown from "@components/misc/Markdown.astro";
+import PageIntroCard from "@components/PageIntroCard.astro";
 import { Icon } from "astro-icon/components";
 import friends from "../data/friends.json";
 import stamps from "../data/stamps.json";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { pageIntros } from "../data/page-intros";
 
-// 读取前面的说明文档
-const introEntry = await getEntry("spec", "friends-intro");
-let IntroContent = null;
-if (introEntry) {
-	const rendered = await render(introEntry);
-	IntroContent = rendered.Content;
-}
+const intro = pageIntros.friends;
 
-// 读取后面的说明文档
+// 读取后面的说明文档（友链申请规则）
 const entry = await getEntry("spec", "friends");
 if (!entry) {
 	throw new Error(
@@ -24,12 +20,6 @@ if (!entry) {
 	);
 }
 const { Content } = await render(entry);
-
-// 标题/描述优先取 frontmatter，没有就用默认
-const title = (entry.data as { title?: string }).title ?? "友邻";
-const description =
-	(entry.data as { description?: string }).description ??
-	"互相串门～欢迎交换友链";
 
 // 手动构建目录 headings（对应页面各 section 的 id）
 const friendsHeadings = [
@@ -100,16 +90,14 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 	.filter((g) => g.items.length > 0);
 ---
 
-<MainGridLayout title={title} description={description} headings={friendsHeadings}>
-  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-    <div class="card-base z-10 px-4 md:px-9 py-6 relative w-full">
+<MainGridLayout title={intro.title} description={intro.paragraphs[0]} headings={friendsHeadings}>
+  <div class="flex flex-col gap-4">
+    <!-- 介绍卡片 -->
+    <PageIntroCard intro={intro} />
 
-      <!-- 前面的 Markdown 说明 -->
-      {IntroContent && (
-        <Markdown class="mb-0">
-          <IntroContent />
-        </Markdown>
-      )}
+    <!-- 内容卡片 -->
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-4 md:px-9 py-6 relative w-full">
 
       <!-- 友链侧耳 -->
       <section id="friend-circle-section" aria-label="友链侧耳" class="not-prose mt-6">
@@ -341,6 +329,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
         <Content />
       </Markdown>
       <LikeButton client:load />
+    </div>
     </div>
   </div>
 

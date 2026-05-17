@@ -197,6 +197,27 @@ function initCategoryFilter() {
     });
 }
 
+// ── 洗牌 ──────────────────────────────────────────────────
+
+function shuffleGallery() {
+    const data = (window as any).__galleryData;
+    if (!data?.images?.length) return;
+    // Fisher-Yates 原地洗牌
+    const arr: ImgData[] = data.images;
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    buildGallery(category);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function initShuffleBtn() {
+    const btn = document.getElementById("gallery-shuffle-btn");
+    if (!btn) return;
+    btn.addEventListener("click", shuffleGallery);
+}
+
 // ── 初始化 ────────────────────────────────────────────────
 
 function init() {
@@ -204,6 +225,7 @@ function init() {
     category = (window.__galleryData as any)?.currentCategory ?? "all";
     buildGallery(category);
     initCategoryFilter();
+    initShuffleBtn();
 }
 
 init();

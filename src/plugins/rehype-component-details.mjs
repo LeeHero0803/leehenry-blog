@@ -22,6 +22,10 @@ export function DetailsComponent(properties, children) {
 			h("summary", { class: "details-summary" }, summary),
 			h("div", { class: "details-body" }, children),
 		]),
-		h("button", { class: "details-fold-btn", type: "button", "aria-label": "收起" }),
+		h("button", {
+			class: "details-fold-btn",
+			type: "button",
+			"aria-label": "收起",
+		}),
 	]);
 }

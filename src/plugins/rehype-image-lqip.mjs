@@ -14,7 +14,12 @@ export function rehypeImageLqip() {
 			if (node.tagName !== "img") return;
 			const src = node.properties?.src;
 			if (!src) return;
-			if (src.startsWith("http") || src.startsWith("/") || src.startsWith("data:")) return;
+			if (
+				src.startsWith("http") ||
+				src.startsWith("/") ||
+				src.startsWith("data:")
+			)
+				return;
 
 			tasks.push(async () => {
 				const filePath = path.resolve(markdownDir, src);
@@ -24,7 +29,8 @@ export function rehypeImageLqip() {
 						.resize(20, null, { withoutEnlargement: true })
 						.jpeg({ quality: 60 })
 						.toBuffer();
-					node.properties["data-lqip"] = `data:image/jpeg;base64,${data.toString("base64")}`;
+					node.properties["data-lqip"] =
+						`data:image/jpeg;base64,${data.toString("base64")}`;
 				} catch {
 					// Unsupported format or corrupt file — skip silently
 				}

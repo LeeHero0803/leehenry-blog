@@ -8,11 +8,11 @@ import { Icon } from "astro-icon/components";
 import { getGuestAuthor } from "../../../data/guest-authors";
 
 export async function getStaticPaths() {
-    const groups = await getGuestPostsByAuthor();
-    return groups.map((group) => ({
-        params: { author: group.author },
-        props: { group },
-    }));
+	const groups = await getGuestPostsByAuthor();
+	return groups.map((group) => ({
+		params: { author: group.author },
+		props: { group },
+	}));
 }
 
 const { group } = Astro.props;

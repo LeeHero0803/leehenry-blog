@@ -15,12 +15,23 @@ function formatGeneratedAt(str: string): string {
 	const h = parseInt(timePart);
 	const period = h < 6 ? "凌晨" : h < 12 ? "上午" : h < 18 ? "下午" : "晚间";
 	const [y, m, d] = datePart.split("-").map(Number);
-	const nowCST = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
-	const [ty, tm, td] = [nowCST.getFullYear(), nowCST.getMonth() + 1, nowCST.getDate()];
+	const nowCST = new Date(
+		new Date().toLocaleString("en-US", { timeZone: "Asia/Shanghai" }),
+	);
+	const [ty, tm, td] = [
+		nowCST.getFullYear(),
+		nowCST.getMonth() + 1,
+		nowCST.getDate(),
+	];
 	if (y === ty && m === tm && d === td) return `今日${period}`;
 	const yest = new Date(nowCST);
 	yest.setDate(yest.getDate() - 1);
-	if (y === yest.getFullYear() && m === yest.getMonth() + 1 && d === yest.getDate()) return `昨日${period}`;
+	if (
+		y === yest.getFullYear() &&
+		m === yest.getMonth() + 1 &&
+		d === yest.getDate()
+	)
+		return `昨日${period}`;
 	return `${m}月${d}日${period}`;
 }
 const generatedAtFmt = formatGeneratedAt(stats.generatedAt);

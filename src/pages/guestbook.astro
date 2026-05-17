@@ -1,40 +1,23 @@
 ---
-import { getEntry, render } from "astro:content";
 import LikeButton from "@components/misc/LikeButton.svelte";
-import Markdown from "@components/misc/Markdown.astro";
+import PageIntroCard from "@components/PageIntroCard.astro";
 import Twikoo from "@components/misc/Twikoo.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { pageIntros } from "../data/page-intros";
 
-const entry = await getEntry("spec", "guestbook");
-if (!entry) {
-	throw new Error(
-		"Guestbook page content not found: make sure src/content/spec/guestbook.md exists",
-	);
-}
-const { Content } = await render(entry);
-
-// 标题/描述优先取 frontmatter，没有就用默认
-const title = entry.data.title ?? "留心";
-const description = entry.data.description ?? "欢迎在这里留下您的足迹和想法";
+const intro = pageIntros.guestbook;
 ---
 
-<MainGridLayout title={title} description={description}>
-  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-    <div class="card-base z-10 px-4 md:px-9 py-6 relative w-full">
-      
-      <!-- Markdown 正文 -->
-      <Markdown class="mt-0">
-        <Content />
-      </Markdown>
-      <LikeButton client:load />
+<MainGridLayout title={intro.title} description={intro.paragraphs[0]}>
+    <div class="flex flex-col gap-4">
+        <!-- 介绍卡片 -->
+        <PageIntroCard intro={intro} />
 
-      <!-- 评论区分隔线 -->
-      <div class="my-8 border-t border-[var(--line-divider)]"></div>
-
-      <!-- Twikoo 评论组件 -->
-      <div class="mt-6">
-        <Twikoo class="onload-animation" path="/guestbook/"></Twikoo>
-      </div>
+        <!-- 内容卡片：点赞 + 评论 -->
+        <section class="card-base px-4 md:px-9 py-6 onload-animation">
+            <LikeButton client:load />
+            <div class="my-8 border-t border-[var(--line-divider)]"></div>
+            <Twikoo class="onload-animation" path="/guestbook/"></Twikoo>
+        </section>
     </div>
-  </div>
 </MainGridLayout>
