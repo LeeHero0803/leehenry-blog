@@ -16,7 +16,7 @@ export interface PageIntro {
 
 export const pageIntros = {
 	guests: {
-		title: "🏠 客邸",
+		title: "🏘️ 客邸",
 		subtitle: "路过几处颜色各异的小房子",
 		paragraphs: [
 			"这里收藏着几位好友的字句，它们原本住在各种社交平台。雨大风疏，我担心中心化公司一次突如其来的变故，让这些自有灵气的表达消弭在数字荒原深处。",
@@ -32,7 +32,7 @@ export const pageIntros = {
 		],
 	},
 	about: {
-		title: "💬 一隅",
+		title: "⚓️ 一隅",
 		subtitle: "注意到有人正对你用力招手",
 		paragraphs: [
 			"我坚信每一种相遇都值得纪念。在记忆褪色之前，我想把一些路途的风景，留存在这个我亲手打理的赛博桃花源。关于我和这里的故事，你可以在这里读到一些。",
@@ -40,7 +40,7 @@ export const pageIntros = {
 		],
 	},
 	friends: {
-		title: "🪨 友邻",
+		title: "⛰️ 友邻",
 		subtitle: "留意到许多深浅不一的脚印",
 		paragraphs: [
 			"我珍视来自个体与个体之间，一切有意义的连接。",
@@ -48,7 +48,7 @@ export const pageIntros = {
 		],
 	},
 	gallery: {
-		title: "🌠️ 光影",
+		title: "✨ 光影",
 		subtitle: "瞥见桌上摆着一台尼康相机",
 		paragraphs: [
 			"这台相机取景传感了我对话世界的每一个当下，让我在步履不停的行走中有了驻足的理由。带着它，我仍在寻找着属于自己的「第二十五号底片」。",

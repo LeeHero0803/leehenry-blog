@@ -21,7 +21,7 @@ export interface GuestAuthor {
 export const guestAuthors: Record<string, GuestAuthor> = {
 	xg7: {
 		name: "XG7",
-		signature: "今年四岁。",
+		signature: "我会把自己送给你亲爱的。",
 		avatar: "/friends/xg7.jpg",
 		link: "https://xhslink.com/m/3jPYFUsqWea",
 	},
