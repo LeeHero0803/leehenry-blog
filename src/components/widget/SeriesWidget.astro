@@ -1,0 +1,198 @@
+---
+import type { SeriesPost } from "../../utils/series-utils";
+import { titleSplitConfig } from "../../config";
+import { splitTitle } from "../../utils/title-utils";
+import { Icon } from "astro-icon/components";
+import WidgetLayout from "./WidgetLayout.astro";
+
+interface Props {
+    class?: string;
+    style?: string;
+    posts: SeriesPost[];
+    currentSlug: string;
+}
+
+const { posts, currentSlug } = Astro.props;
+const className = Astro.props.class;
+const style = Astro.props.style;
+
+// 默认收起视图：仅展示 3 条（当前篇 + 邻近上下篇；首/末则向另一侧补齐）
+const currentIdx = posts.findIndex((p) => p.slug === currentSlug);
+let collapseStart = 0;
+let collapseEnd = posts.length - 1;
+if (posts.length > 3 && currentIdx >= 0) {
+    if (currentIdx <= 0) {
+        collapseStart = 0;
+        collapseEnd = 2;
+    } else if (currentIdx >= posts.length - 1) {
+        collapseStart = posts.length - 3;
+        collapseEnd = posts.length - 1;
+    } else {
+        collapseStart = currentIdx - 1;
+        collapseEnd = currentIdx + 1;
+    }
+}
+const canCollapse = posts.length > 3;
+
+// 把每条目所需的派生数据预先算好，避免在 JSX 块体里使用 >=/<= 触发解析歧义
+const items = posts.map((post, idx) => ({
+    post,
+    idx,
+    isActive: post.slug === currentSlug,
+    inCollapseView: idx >= collapseStart && idx <= collapseEnd,
+    titleParts: titleSplitConfig.enable ? splitTitle(post.title) : null,
+}));
+---
+
+<series-widget class="block relative">
+    <WidgetLayout name="同辙" id="series-widget" class={`block ${className ?? ""}`} style={style}>
+        <div id="series-widget-inner" data-series-inner data-collapsed={canCollapse ? "true" : "false"} class="series-widget-scrollable">
+            <div class="relative">
+                {items.map(({ post, idx, isActive, inCollapseView, titleParts }) => (
+                    <a
+                        href={post.url}
+                        data-active={isActive ? "true" : "false"}
+                        data-in-collapse={inCollapseView ? "true" : "false"}
+                        class:list={[
+                            "series-row px-2 flex items-center gap-2 relative transition w-full min-h-8 rounded-lg py-2",
+                            "hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)]",
+                        ]}
+                    >
+                        <div
+                            class:list={[
+                                "transition w-4 h-4 shrink-0 rounded-md text-xs flex items-center justify-center font-bold",
+                                isActive
+                                    ? "bg-[var(--primary)] text-[var(--card-bg)]"
+                                    : "bg-[var(--toc-badge-bg)] text-[var(--btn-content)]",
+                            ]}
+                        >
+                            {idx + 1}
+                        </div>
+                        <div
+                            class:list={[
+                                "transition text-sm truncate flex-1 min-w-0",
+                                isActive ? "text-90 font-medium" : "text-50",
+                            ]}
+                        >
+                            <span class:list={[isActive && "font-bold"]}>{titleParts ? titleParts.prefix : post.title}</span>
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </div>
+    </WidgetLayout>
+
+    {canCollapse && (
+        <button
+            type="button"
+            data-series-toggle
+            class="absolute top-3 right-3 btn-plain rounded-lg w-8 h-8 flex items-center justify-center z-10"
+            aria-label="展开/收起同辙"
+        >
+            <Icon
+                name="material-symbols:expand-more-sharp"
+                data-series-icon
+                class="text-[1.1rem] transition-transform duration-300"
+            />
+        </button>
+    )}
+</series-widget>
+
+<script>
+class SeriesWidget extends HTMLElement {
+    inner: HTMLDivElement | null = null;
+    active: HTMLAnchorElement | null = null;
+    toggleBtn: HTMLButtonElement | null = null;
+    icon: HTMLElement | null = null;
+    scrollAttempts = 0;
+
+    connectedCallback() {
+        this.inner = this.querySelector<HTMLDivElement>("[data-series-inner]");
+        this.active = this.querySelector<HTMLAnchorElement>('a[data-active="true"]');
+        this.toggleBtn = this.querySelector<HTMLButtonElement>("[data-series-toggle]");
+        this.icon = this.querySelector<HTMLElement>("[data-series-icon]");
+
+        if (this.toggleBtn) {
+            this.toggleBtn.addEventListener("click", this.onToggle);
+        }
+
+        // 收起态下不需要滚动（3 条全可见）；展开后才需要居中
+        this.scrollAttempts = 0;
+        this.tryScroll();
+        // 兜底：window load 后再尝试一次，对付字体延迟加载导致首屏 layout 偏移
+        if (document.readyState !== "complete") {
+            window.addEventListener("load", () => this.tryScroll(), { once: true });
+        }
+    }
+
+    disconnectedCallback() {
+        this.toggleBtn?.removeEventListener("click", this.onToggle);
+    }
+
+    onToggle = () => {
+        if (!this.inner) return;
+        const wasCollapsed = this.inner.dataset.collapsed === "true";
+        this.inner.dataset.collapsed = wasCollapsed ? "false" : "true";
+        if (this.icon) {
+            this.icon.style.transform = wasCollapsed ? "rotate(180deg)" : "";
+        }
+        if (wasCollapsed) {
+            // 关键：同步读取 getBoundingClientRect 会触发强制布局重算（forced reflow），
+            // 此刻浏览器已经按新的 data-collapsed 状态算出布局；
+            // 紧接着写 scrollTop 在同一帧 commit，paint 时直接是最终位置，
+            // 不会出现「先在顶部、再滚到中间」的闪现。
+            this.scrollActiveIntoView();
+        } else if (this.inner) {
+            // 收起 —— 回顶
+            this.inner.scrollTop = 0;
+        }
+    };
+
+    /** rAF 轮询直到容器有真实高度，再居中 active */
+    tryScroll = () => {
+        if (!this.inner || !this.active) return;
+        // 收起态下没必要滚（3 条全见）
+        if (this.inner.dataset.collapsed === "true") return;
+        if (this.inner.clientHeight === 0 || this.active.clientHeight === 0) {
+            if (this.scrollAttempts++ < 120) {
+                requestAnimationFrame(this.tryScroll);
+            }
+            return;
+        }
+        this.scrollActiveIntoView();
+    };
+
+    scrollActiveIntoView() {
+        if (!this.inner || !this.active) return;
+        if (this.inner.clientHeight === 0 || this.active.clientHeight === 0) return;
+        const innerRect = this.inner.getBoundingClientRect();
+        const activeRect = this.active.getBoundingClientRect();
+        const activeOffset =
+            activeRect.top - innerRect.top + this.inner.scrollTop;
+        const target =
+            activeOffset - (this.inner.clientHeight - this.active.clientHeight) / 2;
+        this.inner.scrollTop = Math.max(0, target);
+    }
+}
+
+if (!customElements.get("series-widget")) {
+    customElements.define("series-widget", SeriesWidget);
+}
+</script>
+
+<style>
+    .series-widget-scrollable {
+        max-height: calc((100vh - 10rem) / 3 - 1.5rem);
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .series-widget-scrollable::-webkit-scrollbar {
+        display: none;
+    }
+    /* 收起态：只显示标记为 in-collapse 的条目 */
+    [data-series-inner][data-collapsed="true"] a[data-in-collapse="false"] {
+        display: none;
+    }
+</style>

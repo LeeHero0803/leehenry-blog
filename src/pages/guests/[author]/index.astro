@@ -45,13 +45,24 @@ const meta = getGuestAuthor(group.author);
                     size="md"
                 />
                 <div class="flex-1 min-w-0">
-                    <div class="flex items-baseline gap-3 flex-wrap">
+                    <div class="flex items-center gap-3 flex-wrap">
                         <h1 class="text-3xl md:text-4xl font-bold text-90 uppercase tracking-wide">
                             {meta.name}
                         </h1>
-                        <span class="text-50 text-sm whitespace-nowrap ml-auto">
-                            {group.posts.length} 篇
-                        </span>
+                        {meta.link && (
+                            <span class="social-tip-wrap ml-auto">
+                                <a
+                                    href={meta.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={`访问 ${meta.name} 的主页`}
+                                    class="btn-regular h-8 w-8 active:scale-90"
+                                >
+                                    <Icon name="material-symbols:link-sharp" class="text-[1rem]" />
+                                </a>
+                                <span class="social-tip">{meta.name} 的主页</span>
+                            </span>
+                        )}
                     </div>
                     {meta.signature && (
                         <div class="text-50 text-sm font-serif mt-1">
@@ -68,3 +79,37 @@ const meta = getGuestAuthor(group.author);
         </div>
     </div>
 </MainGridLayout>
+
+<style>
+    /* 与 Profile.astro 的社交按钮 tooltip 同款 */
+    .social-tip-wrap {
+        position: relative;
+        display: inline-flex;
+    }
+    .social-tip {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 6px;
+        padding: 0.3rem 0.6rem;
+        background: var(--card-bg);
+        color: var(--btn-content);
+        border: 1px solid var(--btn-card-bg-active);
+        border-radius: var(--radius-medium);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        font-size: 0.8rem;
+        font-family: var(--font-sans);
+        font-weight: normal;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.18s ease-in-out, visibility 0.18s ease-in-out;
+        z-index: 200;
+    }
+    .social-tip-wrap:hover .social-tip {
+        opacity: 1;
+        visibility: visible;
+    }
+</style>

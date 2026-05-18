@@ -6,9 +6,11 @@ interface Props {
 	class?: string;
 	style?: string;
 	headings: MarkdownHeading[];
+	/** 与系列卡同屏时挤压高度，给系列卡腾另一半 */
+	compact?: boolean;
 }
 
-const { headings = [] } = Astro.props;
+const { headings = [], compact = false } = Astro.props;
 const className = Astro.props.class;
 const style = Astro.props.style;
 
@@ -32,11 +34,11 @@ const maxLevel = 3; // 限制显示层级
 ---
 
 <WidgetLayout name="经纬" id="toc-widget" class={className} style={style}>
-    <div id="toc-widget-inner" class="toc-widget-scrollable">
+    <div id="toc-widget-inner" class:list={["toc-widget-scrollable", { "toc-widget-compact": compact }]}>
         {headings.length > 0 ? (
             <toc-widget class="group">
                 {headings.filter((heading) => heading.depth < minDepth + maxLevel).map((heading) =>
-                    <a href={`#${heading.slug}`} class="px-2 flex gap-2 relative transition w-full min-h-8 rounded-lg
+                    <a href={`#${heading.slug}`} class="px-2 flex items-center gap-2 relative transition w-full min-h-8 rounded-lg
                         hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
                     ">
                         <div class:list={["transition w-4 h-4 shrink-0 rounded-md text-xs flex items-center justify-center font-bold",
@@ -290,6 +292,10 @@ if (!customElements.get("toc-widget")) {
         scrollbar-width: none;
         -ms-overflow-style: none;
         position: relative;
+    }
+    /* 与系列卡同屏：占 2/3，给同辙留 1/3 */
+    .toc-widget-compact {
+        max-height: calc((100vh - 10rem) * 2 / 3);
     }
     
     /* Active indicator styles - 矩形样式 */

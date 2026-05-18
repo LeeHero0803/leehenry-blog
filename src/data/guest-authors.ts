@@ -23,11 +23,13 @@ export const guestAuthors: Record<string, GuestAuthor> = {
 		name: "XG7",
 		signature: "今年四岁。",
 		avatar: "/friends/xg7.jpg",
+		link: "https://xhslink.com/m/3jPYFUsqWea",
 	},
 	tincts: {
 		name: "Tincts",
 		signature: "恍惚地经历世界，笔直地面对自己。",
 		avatar: "/friends/tincts.jpg",
+		link: "https://v.douyin.com/cHLG7CGJdro/",
 	},
 };
 

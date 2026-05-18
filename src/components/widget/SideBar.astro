@@ -1,19 +1,27 @@
 ---
 import type { MarkdownHeading } from "astro";
+import type { SeriesPost } from "../../utils/series-utils";
 import { url } from "../../utils/url-utils";
 import Categories from "./Categories.astro";
 import GalleryCategories from "./GalleryCategories.astro";
 import Profile from "./Profile.astro";
+import SeriesWidget from "./SeriesWidget.astro";
 import Tag from "./Tags.astro";
 import TOCWidget from "./TOCWidget.astro";
 
 interface Props {
 	class?: string;
 	headings?: MarkdownHeading[];
+	series?: {
+		posts: SeriesPost[];
+		currentSlug: string;
+	};
 }
 
 const className = Astro.props.class;
-const { headings = [] } = Astro.props;
+const { headings = [], series } = Astro.props;
+// 仅当系列至少包含 2 篇（包括当前文章自己）才展示
+const showSeries = series && series.posts.length > 1;
 
 // 检查页面类型
 const isPostsRoute = Astro.url.pathname.startsWith(url("/posts/"));
@@ -56,7 +64,15 @@ const isNormalPage = !isTocPage && !isGalleryRoute;
             <GalleryCategories class="onload-animation" style="animation-delay: calc(var(--content-delay))"></GalleryCategories>
         }
         
-        <!-- 正文页/about页：只显示目录卡片 -->
-        {isTocPage && <TOCWidget headings={headings} class="onload-animation" style="animation-delay: calc(var(--content-delay))"></TOCWidget>}
+        <!-- 正文页/about页：先 TOC（经纬），后系列卡（同辙）；同屏时 TOC 自动压成一半高 -->
+        {isTocPage && <TOCWidget headings={headings} compact={showSeries} class="onload-animation" style="animation-delay: calc(var(--content-delay))"></TOCWidget>}
+        {isTocPage && showSeries && series && (
+            <SeriesWidget
+                posts={series.posts}
+                currentSlug={series.currentSlug}
+                class="onload-animation"
+                style="animation-delay: calc(var(--content-delay))"
+            />
+        )}
     </div>
 </div>

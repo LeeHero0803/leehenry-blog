@@ -7,7 +7,8 @@ import {
 	getGuestAuthorFromSlug,
 	getSortedGuestPosts,
 } from "@utils/content-utils";
-import { getDir, url } from "@utils/url-utils";
+import { buildAuthorSeries } from "@utils/series-utils";
+import { getDir, getGuestPostUrlBySlug, url } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 import { titleSplitConfig } from "../../../config";
 import { formatDateToYYYYMMDD } from "../../../utils/date-utils";
@@ -40,6 +41,33 @@ const suffixNewLine = titleSplitConfig.postPage.suffixNewLine;
 
 const author = getGuestAuthorFromSlug(entry.slug);
 const authorLink = entry.data.authorLink?.trim();
+
+// 同作者上下篇：按发布时间倒序（最新在前），仅在同一作者内串联
+const allGuestPosts = await getSortedGuestPosts();
+const sameAuthorPosts = allGuestPosts.filter(
+	(p) => getGuestAuthorFromSlug(p.slug) === author,
+);
+const currentIdx = sameAuthorPosts.findIndex((p) => p.slug === entry.slug);
+const nextEntry = currentIdx > 0 ? sameAuthorPosts[currentIdx - 1] : null;
+const prevEntry =
+	currentIdx >= 0 && currentIdx < sameAuthorPosts.length - 1
+		? sameAuthorPosts[currentIdx + 1]
+		: null;
+
+// 同辙卡：客邸的「同辙」不按 tag 筛选，直接列出当前作者的所有篇目
+const series = {
+	posts: buildAuthorSeries(author, allGuestPosts),
+	currentSlug: entry.slug,
+};
+
+const nextTitleParts =
+	titleSplitConfig.enable && nextEntry
+		? splitTitle(nextEntry.data.title)
+		: null;
+const prevTitleParts =
+	titleSplitConfig.enable && prevEntry
+		? splitTitle(prevEntry.data.title)
+		: null;
 ---
 <MainGridLayout
     banner={entry.data.image}
@@ -48,6 +76,7 @@ const authorLink = entry.data.authorLink?.trim();
     lang={entry.data.lang}
     setOGTypeArticle={true}
     headings={headings}
+    series={series}
 >
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
         <div id="post-container" class="card-base z-10 px-6 md:px-9 pt-6 pb-4 relative w-full">
@@ -162,6 +191,45 @@ const authorLink = entry.data.authorLink?.trim();
                 )}
             </div>
         </div>
+    </div>
+
+    <!-- 同作者上下篇导航 -->
+    <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
+        <a href={nextEntry ? getGuestPostUrlBySlug(nextEntry.slug) : "#"}
+           class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !nextEntry}]}>
+            {nextEntry && <div class="btn-card rounded-2xl w-full h-[3.75rem] max-w-full px-4 flex items-center !justify-start gap-4">
+                <Icon name="material-symbols:chevron-left-sharp" class="text-[2rem] text-[var(--primary)]" />
+                <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
+                    {nextTitleParts ? (
+                        <>
+                            <span class="font-bold">{nextTitleParts.prefix}</span>
+                            <span class="font-bold">{nextTitleParts.separator}</span>
+                            <span class="font-normal" style={`opacity: ${suffixOpacity}`}>{nextTitleParts.suffix}</span>
+                        </>
+                    ) : (
+                        nextEntry.data.title
+                    )}
+                </div>
+            </div>}
+        </a>
+
+        <a href={prevEntry ? getGuestPostUrlBySlug(prevEntry.slug) : "#"}
+           class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !prevEntry}]}>
+            {prevEntry && <div class="btn-card rounded-2xl w-full h-[3.75rem] max-w-full px-4 flex items-center !justify-end gap-4">
+                <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
+                    {prevTitleParts ? (
+                        <>
+                            <span class="font-bold">{prevTitleParts.prefix}</span>
+                            <span class="font-bold">{prevTitleParts.separator}</span>
+                            <span class="font-normal" style={`opacity: ${suffixOpacity}`}>{prevTitleParts.suffix}</span>
+                        </>
+                    ) : (
+                        prevEntry.data.title
+                    )}
+                </div>
+                <Icon name="material-symbols:chevron-right-sharp" class="text-[2rem] text-[var(--primary)]" />
+            </div>}
+        </a>
     </div>
 </MainGridLayout>
 
