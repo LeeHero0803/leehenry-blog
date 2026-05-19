@@ -262,6 +262,7 @@
 	{
 		"name": "路明笔记",
 		"url": "https://luming.cool",
+		"rss": "https://www.luming.cool/feed/",
 		"desc": "不慌张，不绝望，不狂妄，不投降",
 		"avatar": "/friends/luming.webp",
 		"category": "online"
@@ -401,6 +402,7 @@
 	{
 		"name": "甜鱼/Ayu",
 		"url": "https://ayu.land/",
+		"rss": "https://ayu.land/rss.zh.xml",
 		"desc": "三脚猫多面手，努力学习世界的一切",
 		"avatar": "https://profile-content.hydev.org/content/generated/friends/img/Ayu%20%E7%94%9C%E9%B1%BC-avatar.jpg",
 		"category": "online"
@@ -416,6 +418,7 @@
 	{
 		"name": "崔话记",
 		"url": "https://cuixiping.com/",
+		"rss": "https://cuixiping.com/blog/feed/atom/",
 		"desc": "向着理想的方向，爬一会儿，躺一会儿",
 		"avatar": "/friends/chj.webp",
 		"category": "online"

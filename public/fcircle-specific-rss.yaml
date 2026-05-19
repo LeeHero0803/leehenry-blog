@@ -1,0 +1,19 @@
+# Auto-generated from src/data/friends.json — DO NOT EDIT BY HAND.
+# Consumed by /www/wwwroot/fcircle/merge_specific_rss.py on the server,
+# which splices the list into conf.yaml's specific_RSS section before each cron run.
+- name: "AL_1S"
+  url: "https://www.cnblogs.com/mumujun12345/rss/"
+- name: "莫比乌斯"
+  url: "https://mobius.blog/feed/atom/"
+- name: "第三夏尔"
+  url: "https://thirdshire.com/index.xml"
+- name: "椒盐豆豉"
+  url: "https://blog.douchi.space/index.xml"
+- name: "Garden of Outlier"
+  url: "https://chlo.is/feed.atom"
+- name: "ENCOM一号机"
+  url: "https://alanone.top/index.xml"
+- name: "Cytrogen"
+  url: "https://blog.cytrogen.icu/atom.xml"
+- name: "I'm Marcus"
+  url: "https://immarcus.com/blog/rss.xml"
