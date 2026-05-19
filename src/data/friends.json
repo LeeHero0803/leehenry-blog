@@ -10,6 +10,7 @@
 	{
 		"name": "AL_1S",
 		"url": "https://www.cnblogs.com/mumujun12345",
+		"rss": "https://www.cnblogs.com/mumujun12345/rss/",
 		"desc": "AL_1Sのblog",
 		"avatar": "/friends/AL_1S.jpg",
 		"category": "real",
@@ -141,6 +142,7 @@
 	{
 		"name": "莫比乌斯",
 		"url": "https://mobius.blog/",
+		"rss": "https://mobius.blog/feed/atom/",
 		"desc": "凡真实的，必会相遇",
 		"avatar": "/friends/mobius.jpg",
 		"category": "online",
@@ -228,6 +230,7 @@
 	{
 		"name": "第三夏尔",
 		"url": "https://thirdshire.com",
+		"rss": "https://thirdshire.com/index.xml",
 		"desc": "认真生活，积极摸鱼",
 		"avatar": "/friends/TS.jpg",
 		"category": "online"
@@ -250,6 +253,7 @@
 	{
 		"name": "椒盐豆豉",
 		"url": "https://blog.douchi.space/",
+		"rss": "https://blog.douchi.space/index.xml",
 		"desc": "喜欢就买 不行就分 多喝热水 重启电脑",
 		"avatar": "/friends/dino.gif",
 		"category": "stash",
@@ -265,6 +269,7 @@
 	{
 		"name": "Garden of Outlier",
 		"url": "https://chlo.is/",
+		"rss": "https://chlo.is/feed.atom",
 		"desc": "An Element-chan who writes",
 		"avatar": "/friends/cl.webp",
 		"category": "online"
@@ -294,6 +299,7 @@
 	{
 		"name": "ENCOM一号机",
 		"url": "https://alanone.top/",
+		"rss": "https://alanone.top/index.xml",
 		"desc": "1,000 lonely stars | Hiding in the cold",
 		"avatar": "https://media.alanone.top/avatar.jpg",
 		"category": "online",
@@ -343,6 +349,7 @@
 	{
 		"name": "Cytrogen",
 		"url": "https://cytrogen.icu/",
+		"rss": "https://blog.cytrogen.icu/atom.xml",
 		"desc": "万圣节恶魔的领地",
 		"avatar": "https://blog.cytrogen.icu/favicon.png",
 		"category": "online",
@@ -396,6 +403,21 @@
 		"url": "https://ayu.land/",
 		"desc": "三脚猫多面手，努力学习世界的一切",
 		"avatar": "https://profile-content.hydev.org/content/generated/friends/img/Ayu%20%E7%94%9C%E9%B1%BC-avatar.jpg",
+		"category": "online"
+	},
+	{
+		"name": "I'm Marcus",
+		"url": "https://immarcus.com/",
+		"rss": "https://immarcus.com/blog/rss.xml",
+		"desc": "保留时代洪流里的碎碎念",
+		"avatar": "https://immarcus.com/img/logo.svg",
+		"category": "online"
+	},
+	{
+		"name": "崔话记",
+		"url": "https://cuixiping.com/",
+		"desc": "向着理想的方向，爬一会儿，躺一会儿",
+		"avatar": "/friends/chj.webp",
 		"category": "online"
 	}
 ]
