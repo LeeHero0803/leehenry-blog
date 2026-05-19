@@ -37,7 +37,7 @@ if (navBarConfig.showHomeButton === false) {
     </a>
 
     <!-- 桌面端链接：在文字前插入 l.icon -->
-    <div class="hidden md:flex gap-1">
+    <div class="hidden md:flex gap-3">
       {links.map((l) => {
         return <a aria-label={l.name}
                   href={l.external ? l.url : url(l.url)}
@@ -77,15 +77,15 @@ if (navBarConfig.showHomeButton === false) {
     opacity: 0;
     overflow: hidden;
     transition: max-width 0.3s ease, opacity 0.3s ease, margin-left 0.3s ease, margin-right 0.3s ease;
-    margin-left: 1rem;
-    margin-right: 0rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
 
   .nav-link-hover:hover .nav-link-text {
     max-width: 200px;
     opacity: 1;
     margin-left: 0.5rem;
-    margin-right: 0.25rem;
+    margin-right: 0rem;
   }
 </style>
 
