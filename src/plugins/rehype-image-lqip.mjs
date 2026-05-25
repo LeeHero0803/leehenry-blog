@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 import { visit } from "unist-util-visit";
+import { cached } from "../../scripts/lib/image-cache.mjs";
 
 export function rehypeImageLqip() {
 	return async (tree, file) => {
@@ -25,12 +26,17 @@ export function rehypeImageLqip() {
 				const filePath = path.resolve(markdownDir, src);
 				if (!fs.existsSync(filePath)) return;
 				try {
-					const data = await sharp(filePath)
-						.resize(20, null, { withoutEnlargement: true })
-						.jpeg({ quality: 60 })
-						.toBuffer();
-					node.properties["data-lqip"] =
-						`data:image/jpeg;base64,${data.toString("base64")}`;
+					node.properties["data-lqip"] = await cached(
+						filePath,
+						"lqip",
+						async () => {
+							const data = await sharp(filePath)
+								.resize(20, null, { withoutEnlargement: true })
+								.jpeg({ quality: 60 })
+								.toBuffer();
+							return `data:image/jpeg;base64,${data.toString("base64")}`;
+						},
+					);
 				} catch {
 					// Unsupported format or corrupt file — skip silently
 				}

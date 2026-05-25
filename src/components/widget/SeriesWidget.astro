@@ -45,7 +45,7 @@ const items = posts.map((post, idx) => ({
 ---
 
 <series-widget class="block relative">
-    <WidgetLayout name="同辙" id="series-widget" class={`block ${className ?? ""}`} style={style}>
+    <WidgetLayout name="舆图" id="series-widget" class={`block ${className ?? ""}`} style={style}>
         <div id="series-widget-inner" data-series-inner data-collapsed={canCollapse ? "true" : "false"} class="series-widget-scrollable">
             <div class="relative">
                 {items.map(({ post, idx, isActive, inCollapseView, titleParts }) => (
@@ -87,7 +87,7 @@ const items = posts.map((post, idx) => ({
             type="button"
             data-series-toggle
             class="absolute top-3 right-3 btn-plain rounded-lg w-8 h-8 flex items-center justify-center z-10"
-            aria-label="展开/收起同辙"
+            aria-label="展开/收起舆图"
         >
             <Icon
                 name="material-symbols:expand-more-sharp"

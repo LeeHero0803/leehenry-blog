@@ -2,6 +2,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import { execSync } from "child_process";
+import { getCached, setCached } from "./lib/image-cache.mjs";
 
 const data = {
 	categories: [
@@ -86,15 +87,40 @@ print(json.dumps(out))
 	return JSON.parse(output.trim());
 }
 
-// 优先尝试 sharp，失败则回退到 Python Pillow
-let sizes;
-try {
-	sizes = await getSizesViaSharp(allImages.map((img) => img.path));
-	console.log("✓ 使用 sharp 读取图片尺寸");
-} catch (e) {
-	console.warn(`sharp 不可用 (${e.message})，回退到 Python Pillow...`);
-	sizes = getSizesViaPython(allImages.map((img) => img.path));
-	console.log("✓ 使用 Python Pillow 读取图片尺寸");
+// 先查缓存（按 path + mtime + size 指纹）
+const sizes = new Array(allImages.length);
+const missIndices = [];
+for (let i = 0; i < allImages.length; i++) {
+	const hit = getCached(allImages[i].path, "size");
+	if (hit) {
+		sizes[i] = hit;
+	} else {
+		missIndices.push(i);
+	}
+}
+
+// miss 的部分批量跑 sharp（失败再回退 Python）
+if (missIndices.length > 0) {
+	const missPaths = missIndices.map((i) => allImages[i].path);
+	let missSizes;
+	try {
+		missSizes = await getSizesViaSharp(missPaths);
+		console.log(
+			`✓ 使用 sharp 读取 ${missPaths.length} 张图片尺寸（缓存命中 ${allImages.length - missPaths.length} 张）`,
+		);
+	} catch (e) {
+		console.warn(`sharp 不可用 (${e.message})，回退到 Python Pillow...`);
+		missSizes = getSizesViaPython(missPaths);
+		console.log(
+			`✓ 使用 Python Pillow 读取 ${missPaths.length} 张图片尺寸（缓存命中 ${allImages.length - missPaths.length} 张）`,
+		);
+	}
+	missIndices.forEach((idx, j) => {
+		sizes[idx] = missSizes[j];
+		setCached(allImages[idx].path, "size", missSizes[j]);
+	});
+} else if (allImages.length > 0) {
+	console.log(`✓ 全部 ${allImages.length} 张图片尺寸命中缓存`);
 }
 
 data.images = allImages.map((img, i) => ({
