@@ -69,24 +69,6 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
                     title
                 )}
             </span>
-            <span class="absolute left-0 top-0 title-no-stroke inline-flex items-center">
-                {titleParts ? (
-                    <>
-                        <span class="font-bold">{titleParts.prefix}</span>
-                        {(showSuffix || showOnHover) && (
-                            <span class="inline-block align-top title-suffix-wrapper transition-all duration-300 overflow-hidden" class:list={[{"max-w-0 opacity-0": !showSuffix && showOnHover}]} style={`max-width: ${showSuffix ? '100rem' : '0'}; opacity: ${showSuffix ? 1 : 0};`}>
-                                {!hideSeparator && <span class="font-bold whitespace-nowrap">{titleParts.separator}</span>}
-                                {" "}
-                                <span class="font-normal inline-block whitespace-nowrap" style={`opacity: ${suffixOpacity}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
-                            </span>
-                        )}
-                    </>
-                ) : (
-                    title
-                )}
-            </span>
-            <!-- <Icon class="inline text-[2rem] text-[var(--primary)] md:hidden translate-y-0.5 absolute" name="material-symbols:chevron-right-sharp" ></Icon> -->
-            <!-- <Icon class="text-[var(--primary)] text-[2rem] transition hidden md:inline absolute translate-y-0.5 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0" name="material-symbols:chevron-right-sharp"></Icon> -->
         </a>
         {tags && tags.length > 0 && (
             <a href={getTagUrl(tags[0].trim())} class="relative z-10 shrink-0 transition text-sm text-30 hover:text-[var(--primary)] whitespace-nowrap hidden md:inline pb-2">
@@ -149,17 +131,8 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
         max-width: 100rem !important;
         opacity: 1 !important;
     }
-    .title-with-stroke {
-        -webkit-text-stroke: 0px var(--card-bg);
-        text-stroke: 1px var(--card-bg);
-    }
+    /* 给标题 <a> 的 ::after 主题色矩形加 xerox 手写边缘 */
     .title-with-stroke::after {
         filter: url(#xerox);
-    }
-    .title-no-stroke {
-        -webkit-text-stroke: 0;
-        text-stroke: 0;
-        z-index: 20;
-        pointer-events: none;
     }
 </style>
