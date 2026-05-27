@@ -337,16 +337,20 @@ class TOCWidget extends HTMLElement {
 
             // 清洗 TOC entry 文本：去掉 heading 上的脚注引用与 autolink 锚点
             // 用 DOM clone 而非正则，避免误伤合法的数字结尾标题（如 "2024 年回顾"）
-            const clone = heading.cloneNode(true) as HTMLElement;
-            clone.querySelectorAll(
-                ".fn-tip-wrap, sup.footnote-ref, [data-footnote-ref], a.anchor, .anchor-icon"
-            ).forEach((el) => el.remove());
-            const cleanText = (clone.textContent ?? "").replace(/\s+/g, " ").trim();
-            if (cleanText) {
-                const textDiv = this.tocEntries[i].querySelector<HTMLElement>(
-                    ":scope > div:last-child"
-                );
-                if (textDiv) textDiv.textContent = cleanText;
+            // 仅对真正的 heading 元素（h1-h6）处理；container（section/div/article）跳过，
+            // 否则会把整个 section 的所有文字都拼进 textContent
+            if (!isContainer) {
+                const clone = heading.cloneNode(true) as HTMLElement;
+                clone.querySelectorAll(
+                    ".fn-tip-wrap, sup.footnote-ref, [data-footnote-ref], a.anchor, .anchor-icon"
+                ).forEach((el) => el.remove());
+                const cleanText = (clone.textContent ?? "").replace(/\s+/g, " ").trim();
+                if (cleanText) {
+                    const textDiv = this.tocEntries[i].querySelector<HTMLElement>(
+                        ":scope > div:last-child"
+                    );
+                    if (textDiv) textDiv.textContent = cleanText;
+                }
             }
         }
         this.active = new Array(this.tocEntries.length).fill(false);
