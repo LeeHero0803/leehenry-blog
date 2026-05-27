@@ -3,9 +3,9 @@ title: 代码里的逻辑森林：「数据结构」课程笔记·期末
 published: 2024-04-28
 description: '「数据结构」课程笔记·期末'
 image: ''
-tags: [学不懂的计算机]
+tags: [计科生涯]
 category: 推理到跑通
-draft: true
+unlisted: true
 ---
 
 ## 数据结构与算法

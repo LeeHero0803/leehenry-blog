@@ -17,7 +17,20 @@ const splitTag = (name: string): { emoji: string; text: string } => {
 };
 
 const seriesTags = tags.filter((t) => isEmojiTag(t.name));
-const regularTags = tags.filter((t) => !isEmojiTag(t.name));
+
+// 普通标签排序：先中文再英文 → 字数少在前 → 同字数按字典序
+const startsWithHan = (s: string) => /^\p{Script=Han}/u.test(s.trim());
+const regularTags = tags
+	.filter((t) => !isEmojiTag(t.name))
+	.sort((a, b) => {
+		const na = a.name.trim();
+		const nb = b.name.trim();
+		const aHan = startsWithHan(na);
+		const bHan = startsWithHan(nb);
+		if (aHan !== bHan) return aHan ? -1 : 1;
+		if (na.length !== nb.length) return na.length - nb.length;
+		return na.localeCompare(nb, "zh-Hans");
+	});
 
 const ROTATIONS = [-3, 2.5, -1.5, 3, -2.5, 1.5, -2, 2];
 
@@ -53,7 +66,7 @@ const style = Astro.props.style;
 
 		<div class="tag-divider"></div>
 
-		<div class="flex gap-2 flex-wrap">
+		<div class="flex gap-2 flex-wrap justify-center">
 			{regularTags.map((t) => (
 				<ButtonTag href={getTagUrl(t.name)} label={`View all posts with the ${t.name.trim()} tag`}>
 					{t.name.trim()}
