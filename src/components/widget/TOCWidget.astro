@@ -14,8 +14,6 @@ const { headings = [], compact = false } = Astro.props;
 const className = Astro.props.class;
 const style = Astro.props.style;
 
-// 移除展开功能，直接显示所有内容
-
 const removeTailingHash = (text: string) => {
 	let lastIndexOfHash = text.lastIndexOf("#");
 	if (lastIndexOfHash !== text.length - 1) {
@@ -29,37 +27,103 @@ for (const heading of headings) {
 	minDepth = Math.min(minDepth, heading.depth);
 }
 
-let heading1Count = 1;
-const maxLevel = 3; // 限制显示层级
+const maxLevel = 3; // 限制显示层级：相对 minDepth 的 0/1/2
+
+// 每个 heading 标注 level (0/1/2) + 一级序号
+type Annotated = MarkdownHeading & { level: number; h1Index?: number };
+const annotated: Annotated[] = [];
+let h1Counter = 0;
+for (const h of headings) {
+	const level = h.depth - minDepth;
+	if (level >= maxLevel) continue;
+	const item: Annotated = { ...h, level };
+	if (level === 0) {
+		h1Counter += 1;
+		item.h1Index = h1Counter;
+	}
+	annotated.push(item);
+}
+
+// 把「二级 + 其后的三级」打包成 h2-group；其余作为 flat 节点。
+type Group =
+	| { kind: "flat"; item: Annotated }
+	| { kind: "h2-group"; item: Annotated; children: Annotated[] };
+
+const groups: Group[] = [];
+let openGroup: { kind: "h2-group"; item: Annotated; children: Annotated[] } | null = null;
+for (const h of annotated) {
+	if (h.level === 1) {
+		openGroup = { kind: "h2-group", item: h, children: [] };
+		groups.push(openGroup);
+	} else if (h.level === 2 && openGroup) {
+		openGroup.children.push(h);
+	} else {
+		groups.push({ kind: "flat", item: h });
+		openGroup = null;
+	}
+}
 ---
 
 <WidgetLayout name="经纬" id="toc-widget" class={className} style={style}>
     <div id="toc-widget-inner" class:list={["toc-widget-scrollable", { "toc-widget-compact": compact }]}>
-        {headings.length > 0 ? (
+        {annotated.length > 0 ? (
             <toc-widget class="group">
-                {headings.filter((heading) => heading.depth < minDepth + maxLevel).map((heading) =>
-                    <a href={`#${heading.slug}`} class="px-2 flex items-center gap-2 relative transition w-full min-h-8 rounded-lg
-                        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
-                    ">
+                {groups.map((g) => g.kind === "flat" ? (
+                    <a href={`#${g.item.slug}`}
+                       data-level={g.item.level}
+                       class:list={[
+                           "toc-entry px-2 flex items-center gap-2 relative transition w-full min-h-8 rounded-lg",
+                           "hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2",
+                           { "toc-entry-h3": g.item.level === 2 },
+                       ]}
+                    >
                         <div class:list={["transition w-4 h-4 shrink-0 rounded-md text-xs flex items-center justify-center font-bold",
                             {
-                                "bg-[var(--toc-badge-bg)] text-[var(--btn-content)]": heading.depth == minDepth,
-                                "ml-3": heading.depth == minDepth + 1,
-                                "ml-6": heading.depth == minDepth + 2,
+                                "bg-[var(--toc-badge-bg)] text-[var(--btn-content)]": g.item.level === 0,
+                                "ml-3": g.item.level === 1,
+                                "ml-6": g.item.level === 2,
                             }
-                        ]}
-                        >
-                            {heading.depth == minDepth && heading1Count++}
-                            {heading.depth == minDepth + 1 && <div class="transition w-1.5 h-1.5 rounded-sm bg-[var(--toc-badge-bg)]"></div>}
-                            {heading.depth == minDepth + 2 && <div class="transition w-1 h-1 rounded bg-black/5 dark:bg-white/10"></div>}
+                        ]}>
+                            {g.item.level === 0 && g.item.h1Index}
+                            {g.item.level === 1 && <div class="transition w-1.5 h-1.5 rounded-sm bg-[var(--toc-badge-bg)]"></div>}
+                            {g.item.level === 2 && <div class="transition w-1 h-1 rounded bg-black/5 dark:bg-white/10"></div>}
                         </div>
                         <div class:list={["transition text-sm truncate", {
-                            "text-50": heading.depth == minDepth || heading.depth == minDepth + 1,
-                            "text-30": heading.depth == minDepth + 2,
-                        }]}>{removeTailingHash(heading.text)}</div>
+                            "text-50": g.item.level === 0 || g.item.level === 1,
+                            "text-30": g.item.level === 2,
+                        }]}>{removeTailingHash(g.item.text)}</div>
                     </a>
-                )}
-                <div id="toc-active-indicator" style="opacity: 0" class:list={[{'hidden': headings.length == 0}, "-z-10 absolute bg-[var(--toc-btn-hover)] left-0 right-0 rounded-md transition-all " +
+                ) : (
+                    <div class="toc-h2-group">
+                        <a href={`#${g.item.slug}`}
+                           data-level={g.item.level}
+                           class:list={[
+                               "toc-entry px-2 flex items-center gap-2 relative transition w-full min-h-8 rounded-lg",
+                               "hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2",
+                           ]}
+                        >
+                            <div class="transition w-4 h-4 shrink-0 rounded-md text-xs flex items-center justify-center font-bold ml-3">
+                                <div class="transition w-1.5 h-1.5 rounded-sm bg-[var(--toc-badge-bg)]"></div>
+                            </div>
+                            <div class="transition text-sm truncate text-50">{removeTailingHash(g.item.text)}</div>
+                        </a>
+                        {g.children.map((h3) => (
+                            <a href={`#${h3.slug}`}
+                               data-level={h3.level}
+                               class:list={[
+                                   "toc-entry toc-entry-h3 px-2 flex items-center gap-2 relative transition w-full min-h-8 rounded-lg",
+                                   "hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2",
+                               ]}
+                            >
+                                <div class="transition w-4 h-4 shrink-0 rounded-md text-xs flex items-center justify-center font-bold ml-6">
+                                    <div class="transition w-1 h-1 rounded bg-black/5 dark:bg-white/10"></div>
+                                </div>
+                                <div class="transition text-sm truncate text-30">{removeTailingHash(h3.text)}</div>
+                            </a>
+                        ))}
+                    </div>
+                ))}
+                <div id="toc-active-indicator" style="opacity: 0" class:list={["-z-10 absolute bg-[var(--toc-btn-hover)] left-0 right-0 rounded-md transition-all " +
                     "group-hover:bg-transparent border-2 border-[var(--toc-btn-hover)] group-hover:border-[var(--toc-btn-active)] border-dashed"]}></div>
             </toc-widget>
         ) : (
@@ -82,6 +146,7 @@ class TOCWidget extends HTMLElement {
     tocEntries: HTMLAnchorElement[] = [];
     active: boolean[] = [];
     activeIndicator: HTMLElement | null = null;
+    h2Groups: HTMLElement[] = [];
 
     constructor() {
         super();
@@ -124,6 +189,11 @@ class TOCWidget extends HTMLElement {
             this.tocEntries[i].classList.remove(this.visibleClass);
             i--;
         }
+
+        // 根据 visible 切换 h2 group 的 expanded 状态，必须在算 indicator 前完成
+        // 否则 h3 entry 的 rect 会因 display:none 拿到 0
+        this.updateGroupExpansion();
+
         if (min > max) {
             this.activeIndicator?.setAttribute("style", `opacity: 0`);
         } else {
@@ -132,6 +202,13 @@ class TOCWidget extends HTMLElement {
             let top = this.tocEntries[min].getBoundingClientRect().top - parentOffset + scrollOffset;
             let bottom = this.tocEntries[max].getBoundingClientRect().bottom - parentOffset + scrollOffset;
             this.activeIndicator?.setAttribute("style", `top: ${top}px; height: ${bottom - top}px`);
+        }
+    };
+
+    updateGroupExpansion = () => {
+        for (const group of this.h2Groups) {
+            const hasVisible = !!group.querySelector(`a.${this.visibleClass}`);
+            group.classList.toggle("expanded", hasVisible);
         }
     };
 
@@ -175,7 +252,7 @@ class TOCWidget extends HTMLElement {
 
             if (this.isInRange(offsetTop, 0, window.innerHeight)
                 || this.isInRange(offsetBottom, 0, window.innerHeight)
-                || (offsetTop < 0 && offsetBottom > window.innerHeight)) {                    
+                || (offsetTop < 0 && offsetBottom > window.innerHeight)) {
                 this.markActiveHeading(i);
             }
             else if (offsetTop > window.innerHeight) break;
@@ -236,6 +313,10 @@ class TOCWidget extends HTMLElement {
             document.querySelectorAll<HTMLAnchorElement>("#toc-widget a[href^='#']")
         );
 
+        this.h2Groups = Array.from(
+            document.querySelectorAll<HTMLElement>("#toc-widget .toc-h2-group")
+        );
+
         if (this.tocEntries.length === 0) return;
 
         this.sections = new Array(this.tocEntries.length);
@@ -283,7 +364,7 @@ if (!customElements.get("toc-widget")) {
     toc-widget {
         position: relative;
     }
-    
+
     /* 可滚动的目录容器 */
     .toc-widget-scrollable {
         max-height: calc(100vh - 10rem);
@@ -297,7 +378,7 @@ if (!customElements.get("toc-widget")) {
     .toc-widget-compact {
         max-height: calc((100vh - 10rem) * 2 / 3);
     }
-    
+
     /* Active indicator styles - 矩形样式 */
     #toc-active-indicator {
         position: absolute;
@@ -306,13 +387,18 @@ if (!customElements.get("toc-widget")) {
         transition: all 0.2s ease;
         pointer-events: none;
     }
-    
+
     /* Hover effects - 与原来的TOC组件保持一致 */
     toc-widget a:hover {
         background-color: var(--toc-btn-hover);
     }
-    
+
     toc-widget a:active {
         background-color: var(--toc-btn-active);
+    }
+
+    /* 三级标题默认折叠：只有所在 h2 group 处于 .expanded（含 active 项）时展开 */
+    .toc-h2-group:not(.expanded) .toc-entry-h3 {
+        display: none;
     }
 </style>

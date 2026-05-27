@@ -5,7 +5,7 @@
     &.os-scrollbar-horizontal {
         @apply py-1 px-2 h-4;
         .os-scrollbar-track .os-scrollbar-handle {
-            @apply rounded-full h-1;
+            @apply rounded-none h-1;
         }
         &:hover .os-scrollbar-track .os-scrollbar-handle {
             @apply h-2;
@@ -15,7 +15,7 @@
     &.os-scrollbar-vertical {
         @apply px-1 py-1 w-4;
         .os-scrollbar-track .os-scrollbar-handle {
-            @apply rounded-full w-1;
+            @apply rounded-none w-1;
         }
         &:hover .os-scrollbar-track .os-scrollbar-handle {
             @apply w-2;

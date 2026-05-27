@@ -64,7 +64,7 @@ const isNormalPage = !isTocPage && !isGalleryRoute;
             <GalleryCategories class="onload-animation" style="animation-delay: calc(var(--content-delay))"></GalleryCategories>
         }
         
-        <!-- 正文页/about页：先 TOC（经纬），后系列卡（同辙）；同屏时 TOC 自动压成一半高 -->
+        <!-- 正文页/about页：先 TOC（经纬），后系列卡（舆图）；同屏时 TOC 自动压成一半高 -->
         {isTocPage && <TOCWidget headings={headings} compact={showSeries} class="onload-animation" style="animation-delay: calc(var(--content-delay))"></TOCWidget>}
         {isTocPage && showSeries && series && (
             <SeriesWidget

@@ -15,7 +15,10 @@ if (!aboutPost) {
 
 const { Content, headings: rawHeadings } = await render(aboutPost);
 // TOC 仅取 H2 及以下；H1 已不存在于 about.md（已迁入介绍卡）
-const headings = rawHeadings.filter((h) => h.depth > 1);
+// 同时排除 remark-footnotes 自动生成的 "Footnotes" heading
+const headings = rawHeadings.filter(
+	(h) => h.depth > 1 && h.slug !== "footnote-label",
+);
 ---
 
 <MainGridLayout

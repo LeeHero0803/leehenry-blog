@@ -168,8 +168,7 @@
 		"url": "https://www.owenyoung.com/",
 		"desc": "追求注意力自由而不是财富自由",
 		"avatar": "/friends/owen.jpg",
-		"category": "stash",
-		"hidden": true
+		"category": "stash"
 	},
 	{
 		"name": "SkyWT",
@@ -405,7 +404,7 @@
 		"rss": "https://ayu.land/rss.zh.xml",
 		"desc": "三脚猫多面手，努力学习世界的一切",
 		"avatar": "https://profile-content.hydev.org/content/generated/friends/img/Ayu%20%E7%94%9C%E9%B1%BC-avatar.jpg",
-		"category": "online"
+		"category": "stash"
 	},
 	{
 		"name": "I'm Marcus",
@@ -421,6 +420,6 @@
 		"rss": "https://cuixiping.com/blog/feed/atom/",
 		"desc": "向着理想的方向，爬一会儿，躺一会儿",
 		"avatar": "/friends/chj.webp",
-		"category": "online"
+		"category": "stash"
 	}
 ]
