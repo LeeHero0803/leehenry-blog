@@ -105,7 +105,7 @@
    - [理性讨论似乎只能小范围存在](https://leehenry.top/posts/words_in_wildness/ww-vol03/#理性讨论似乎只能小范围存在)
 
 2. 我的审美趣味与设计原则
-   - [沉溺于创作环境的维护中](http://localhost:4321/posts/words_in_wildness/ww-vol02/#沉溺于创作环境的维护中)
+   - [沉溺于创作环境的维护中](https://leehenry.top/posts/words_in_wildness/ww-vol02/#沉溺于创作环境的维护中)
    - [非典型 P 人如何与秩序共处](https://leehenry.top/posts/mindlight_maze/mm-vol06/#认知结构的秩序)
 
 3. 本站的 Markdown 样式陈列

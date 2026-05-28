@@ -1,7 +1,7 @@
 ---
 title: 关于友谊
 published: 2026-05-12
-tags: [随笔, 撒汤卷膜]
+tags: [随笔]
 ---
 
 ![](friendship/image-20260516213544297.png)

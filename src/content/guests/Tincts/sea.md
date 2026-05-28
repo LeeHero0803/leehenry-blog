@@ -1,7 +1,7 @@
 ---
 title: 海
 published: 2026-01-07
-tags: [随笔, 撒汤卷膜]
+tags: [随笔]
 ---
 
 ![](sea/image-20260516213603927.png)
