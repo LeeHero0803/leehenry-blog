@@ -327,7 +327,7 @@
 		"name": "Bluepikachu",
 		"url": "https://bluepika.life/",
 		"desc": "A Designer.",
-		"avatar": "https://pub-acdbc21bc3964d18a684b0c51010a4e5.r2.dev/notion-face-portrait.png",
+		"avatar": "/friends/pika.webp",
 		"category": "stash"
 	},
 	{
@@ -420,6 +420,16 @@
 		"rss": "https://cuixiping.com/blog/feed/atom/",
 		"desc": "向着理想的方向，爬一会儿，躺一会儿",
 		"avatar": "/friends/chj.webp",
-		"category": "stash"
+		"category": "stash",
+		"hidden": true
+	},
+	{
+		"name": "寒江在下雪",
+		"url": "https://hanchan.vip/",
+		"rss": "https://hanchan.vip/posts/feed.atom",
+		"desc": "I love you and I’m not an artist",
+		"avatar": "https://hanchan.vip/avatar.webp",
+		"category": "online"
 	}
+
 ]
