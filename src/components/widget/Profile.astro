@@ -96,8 +96,11 @@ const fallbackQR = "/wechat-qrcode.png";
                 : item?.copyOnClick
                 ? (
                   <span class="social-tip-wrap">
-                    <button
-                      type="button"
+                    {/* 用 <a> 而非 <button>：JS 禁用时点击直接打开 URL；JS 启用时 handler preventDefault + 复制 */}
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={item.name}
                       class="btn-regular h-8 w-8 active:scale-90 social-copy-btn"
                       data-copy-url={item.url}
@@ -106,7 +109,7 @@ const fallbackQR = "/wechat-qrcode.png";
                       <svg viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg" class="text-[1.2rem] copy-btn-check-icon transition absolute opacity-0 w-[1.2rem] h-[1.2rem]">
                         <path d="m389-377.13 294.7-294.7q12.58-12.67 29.52-12.67 16.93 0 29.61 12.67 12.67 12.68 12.67 29.53 0 16.86-12.28 29.14L419.07-288.41q-12.59 12.67-29.52 12.67-16.94 0-29.62-12.67L217.41-430.93q-12.67-12.68-12.79-29.45-.12-16.77 12.55-29.45 12.68-12.67 29.62-12.67 16.93 0 29.28 12.67L389-377.13Z" />
                       </svg>
-                    </button>
+                    </a>
                     <span class="social-tip" data-tip-default={item.name} data-tip-copied="已复制">{item.name}</span>
                   </span>
                 )
@@ -176,6 +179,8 @@ const fallbackQR = "/wechat-qrcode.png";
     if (!btn) return;
     var url = btn.getAttribute('data-copy-url');
     if (!url) return;
+    // 拦截 <a> 的默认跳转，改为复制；JS 禁用时本 handler 不执行，<a> 走默认行为打开 URL
+    e.preventDefault();
     navigator.clipboard.writeText(url);
 
     var timeoutId = btn._copyTimeout;

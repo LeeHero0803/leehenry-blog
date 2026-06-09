@@ -91,6 +91,15 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 ---
 
 <MainGridLayout title={intro.title} description={intro.paragraphs[0]} headings={friendsHeadings}>
+  <style is:global>
+    html.no-js .friend-section-expanded {
+      display: grid !important;
+    }
+    html.no-js .friend-section-collapsed,
+    html.no-js .friend-toggle-btn {
+      display: none !important;
+    }
+  </style>
   <div class="flex flex-col gap-4">
     <!-- 介绍卡片 -->
     <PageIntroCard intro={intro} />

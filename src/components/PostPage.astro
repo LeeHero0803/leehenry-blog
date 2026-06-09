@@ -8,6 +8,22 @@ const { page } = Astro.props;
 let delay = 0;
 const interval = 50;
 ---
+<div class="site-announcement-wrap">
+    <div
+        class="site-announcement card-base mb-4 px-5 py-4 flex items-center justify-center text-center"
+        style="border: 1px solid var(--primary);"
+    >
+        <div class="text-base leading-relaxed" style="color: var(--btn-content);">
+            您已禁用 JavaScript。网站采用优雅降级，核心内容与功能不受影响，但部分过渡动画与交互功能将不可用。<br />
+            推荐启用 JavaScript 以获得完整浏览体验。
+        </div>
+    </div>
+</div>
+<style is:global>
+    .site-announcement-wrap { display: none; }
+    html.no-js .site-announcement-wrap { display: block; }
+</style>
+
 <div class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4">
     {page.data.map((entry: CollectionEntry<"posts">) => (
         <PostCard

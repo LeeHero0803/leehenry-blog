@@ -11,10 +11,68 @@ const currentCategory = Astro.props.currentCategory || "all";
 
 const allImagesData = JSON.stringify(galleryData.images);
 const categoriesData = JSON.stringify(galleryData.categories);
+
+// JS 禁用时的兜底图片列表：按当前分类过滤
+const noscriptImages =
+	currentCategory === "all"
+		? galleryData.images
+		: galleryData.images.filter((img) => img.category === currentCategory);
 ---
 
 <div class:list={["gallery-container", className]} id="gallery-container">
     <div class="gallery-masonry" id="gallery-masonry"></div>
+    <style is:global>
+        /* 仅 html.no-js 时生效：隐藏依赖 JS 的空容器与控件 */
+        html.no-js #gallery-masonry,
+        html.no-js #gallery-shuffle-btn,
+        html.no-js .gallery-category-btn { display: none !important; }
+        /* 默认隐藏静态网格；html.no-js 时显示 */
+        .gallery-noscript-wrap { display: none; }
+        html.no-js .gallery-noscript-wrap { display: block; }
+        /* CSS multi-column 简易 masonry */
+        .gallery-noscript {
+            column-count: 2;
+            column-gap: 0.5rem;
+        }
+        @media (min-width: 1024px) {
+            .gallery-noscript { column-count: 3; }
+        }
+        .gallery-noscript a {
+            display: block;
+            margin-bottom: 0.5rem;
+            break-inside: avoid;
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+        .gallery-noscript img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.2s ease-in-out;
+        }
+        .gallery-noscript a:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-noscript-hint {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            color: var(--btn-content);
+            opacity: 0.45;
+            font-size: 0.875rem;
+        }
+    </style>
+    <div class="gallery-noscript-wrap">
+        <div class="gallery-noscript-hint">
+            分类切换、灯箱预览与洗牌需启用 JavaScript；点击图片可在新标签查看原图。
+        </div>
+        <div class="gallery-noscript">
+            {noscriptImages.map((img, i) => (
+                <a href={img.src} target="_blank" rel="noopener noreferrer" aria-label={`摄影作品 ${i + 1}`}>
+                    <img src={img.src} alt={`摄影作品 ${i + 1}`} width={img.w || undefined} height={img.h || undefined} loading="lazy" decoding="async" />
+                </a>
+            ))}
+        </div>
+    </div>
 </div>
 
 <script is:inline define:vars={{ allImagesData, categoriesData, currentCategory }}>

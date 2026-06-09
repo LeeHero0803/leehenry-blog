@@ -11,6 +11,16 @@ const { apiUrl = "https://twikoo.leehenry.top/fcircle/all.json" } = Astro.props;
 	<div id="fcircle-articles" class="fcircle-grid"></div>
 	<div id="fcircle-stats" class="fcircle-stats" hidden></div>
 	<div id="fcircle-error" class="fcircle-error" hidden></div>
+	<style is:global>
+		html.no-js #fcircle-loading { display: none !important; }
+		.fcircle-noscript-wrap { display: none; }
+		html.no-js .fcircle-noscript-wrap { display: block; }
+	</style>
+	<div class="fcircle-noscript-wrap">
+		<div class="fcircle-noscript">
+			友邻邮报需要启用 JavaScript 才能展示。
+		</div>
+	</div>
 </div>
 
 <script>
@@ -270,7 +280,8 @@ else document.addEventListener("swup:enable", setup);
 <style is:global>
 	/* ── 加载 / 错误状态 ───────────────────────────────────────── */
 	.fcircle-loading,
-	.fcircle-error {
+	.fcircle-error,
+	.fcircle-noscript {
 		text-align: center;
 		padding: 2.5rem 1rem;
 		color: var(--btn-content);

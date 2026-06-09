@@ -1,7 +1,10 @@
 :root {
-    --font-sans:  'vivo Sans', 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', system-ui, sans-serif;
-    --font-serif: 'Zhuque Fangsong', 'STKaiti', 'KaiTi', 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', serif;
-    --font-mono:  'JetBrains Mono Variable', 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'vivo Sans', ui-monospace, monospace;
+    /* emoji 字体放到主字体栈最后：避免 vivo Sans swap 期间 Segoe UI Emoji
+       把 ASCII 数字/字母渲染成宽字距、有渐变的 emoji 风格。
+       浏览器对 emoji 字符自带 fallback，不依赖 font-family 顺序。 */
+    --font-sans:  'vivo Sans', system-ui, sans-serif, 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-serif: 'Zhuque Fangsong', 'STKaiti', 'KaiTi', serif, 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-mono:  'JetBrains Mono Variable', ui-monospace, monospace, 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
 @font-face {

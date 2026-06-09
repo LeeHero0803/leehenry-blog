@@ -74,7 +74,7 @@ const bannerOffset =
 ---
 
 <!DOCTYPE html>
-<html lang={siteLang} class="bg-[var(--page-bg)] transition text-[14px] md:text-[16px]"
+<html lang={siteLang} class="no-js bg-[var(--page-bg)] transition text-[14px] md:text-[16px]"
 	  data-overlayscrollbars-initialize
 >
 	<head>
@@ -165,6 +165,63 @@ const bannerOffset =
 		});
 	})();
 	</script>}
+
+	<script is:inline>
+		/* 在 head 最早一刻把 html.no-js 类去掉，让基于 html.no-js 选择器的
+		   noscript 兜底样式只在真正禁用 JS 时生效。
+		   原本用 <noscript><style> 的方式：swup updateHead 时的内部 DOM parser
+		   总按 scripting disabled 处理 noscript 内容，会把 style 错误加进
+		   stylesheet，导致 JS 启用时 widget 内容被隐藏。 */
+		document.documentElement.classList.remove('no-js');
+	</script>
+	<style is:global>
+		/* Banner 初始有 opacity-0 + scale-105，由 showBanner() JS 解除。JS 禁用时强制可见。 */
+		html.no-js #banner {
+			opacity: 1 !important;
+			transform: none !important;
+		}
+		/* JS 禁用时浏览器是原生整页跳转，不需要淡入上浮动画——直接硬切显示。 */
+		html.no-js .onload-animation {
+			animation: none !important;
+			opacity: 1 !important;
+			transform: none !important;
+		}
+		/* 所有图片兜底可见。 */
+		html.no-js img {
+			opacity: 1 !important;
+		}
+		/* 主题切换、搜索、评论等依赖 JS 的交互组件：保留显示但不可点击的视觉提示 */
+		html.no-js [data-needs-js] {
+			opacity: 0.4;
+			pointer-events: none;
+		}
+		/* 「辑录」「焦点」「文眼」widget：切换/筛选/折叠完全依赖 JS。
+		   保留 widget 标题，把内容区清空并注入一行提示文字。 */
+		html.no-js #categories,
+		html.no-js #gallery-categories,
+		html.no-js #tags {
+			height: auto !important;
+		}
+		html.no-js #categories > *,
+		html.no-js #gallery-categories > *,
+		html.no-js #tags > * {
+			display: none !important;
+		}
+		html.no-js #categories::before,
+		html.no-js #gallery-categories::before,
+		html.no-js #tags::before {
+			content: "该功能需启用 JavaScript";
+			display: block;
+			text-align: center;
+			padding: 1.5rem 1rem;
+			color: var(--btn-content);
+			opacity: 0.45;
+			font-size: 0.875rem;
+		}
+		html.no-js .expand-btn {
+			display: none !important;
+		}
+	</style>
 
 	</head>
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
@@ -292,13 +349,14 @@ function setClickOutsideToClose(panel: string, ignores: string[]) {
 		let panelDom = document.getElementById(panel);
 		let tDom = event.target;
 		if (!(tDom instanceof Node)) return;		// Ensure the event target is an HTML Node
+		if (!panelDom) return;						// Panel 不在当前页面（swup 切换可能瞬态丢失）
 		for (let ig of ignores) {
 			let ie = document.getElementById(ig)
 			if (ie == tDom || (ie?.contains(tDom))) {
 				return;
 			}
 		}
-		panelDom!.classList.add("float-panel-closed");
+		panelDom.classList.add("float-panel-closed");
 	});
 }
 setClickOutsideToClose("display-setting", ["display-setting", "display-settings-switch"])
@@ -732,6 +790,9 @@ if (window.swup) {
 	}
 	document.addEventListener('swup:page:view', initLqipOverlays);
 })();
+</script>
+
+<script is:inline>
 </script>
 
 <script is:inline>
