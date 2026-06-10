@@ -154,7 +154,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
             </div>
 
             <!-- 收起状态：头像叠排卡片 -->
-            <div class="friend-section-collapsed px-6 md:px-12" data-section={key}>
+            <div class="friend-section-collapsed hidden px-6 md:px-12" data-section={key}>
               <div class="friend-collapsed-card flex items-center border p-3 transition cursor-pointer
                 hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)] active:scale-[0.98]"
                 style="background-color: var(--card-bg); border-color: var(--btn-card-bg-active); color: var(--btn-content);">
@@ -182,7 +182,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
             </div>
 
             <!-- 展开状态：原有卡片栅格 -->
-            <div class="friend-section-expanded hidden grid gap-4 grid-cols-1 sm:grid-cols-2 px-6 md:px-12" data-section={key}>
+            <div class="friend-section-expanded grid gap-4 grid-cols-1 sm:grid-cols-2 px-6 md:px-12" data-section={key}>
             {items.map((f, index) => {
               const noteId = `friend-note-${key}-${index}`;
               return (
@@ -370,29 +370,32 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
           const expanded = document.querySelector(`.friend-section-expanded[data-section="${key}"]`);
           const icon = btn.querySelector('.friend-toggle-icon');
 
-          // 默认收起；若用户曾展开则恢复展开状态
-          if (localStorage.getItem(`friend-section-${key}`) === 'expanded') {
-            collapsed && collapsed.classList.add('hidden');
-            expanded && expanded.classList.remove('hidden');
-            icon && (icon.style.transform = '');
-          } else {
-            // 默认收起，chevron 朝下
+          // 默认展开；若用户曾手动折叠则恢复折叠状态
+          if (localStorage.getItem(`friend-section-${key}`) === 'collapsed') {
+            expanded && expanded.classList.add('hidden');
+            collapsed && collapsed.classList.remove('hidden');
             icon && (icon.style.transform = 'rotate(180deg)');
+          } else {
+            // 默认展开，chevron 朝上
+            icon && (icon.style.transform = '');
           }
 
           function toggleSection() {
-            const isCollapsed = !collapsed.classList.contains('hidden');
-            if (isCollapsed) {
+            // 用 expanded 是否 hidden 判断当前状态（更可靠：模板默认 expanded 可见）
+            const isExpanded = !expanded.classList.contains('hidden');
+            if (isExpanded) {
+              // 当前展开 → 切换为折叠
+              expanded.classList.add('hidden');
+              collapsed.classList.remove('hidden');
+              btn.classList.add('is-collapsed');
+              icon && (icon.style.transform = 'rotate(180deg)');
+              localStorage.setItem(`friend-section-${key}`, 'collapsed');
+            } else {
+              // 当前折叠 → 切换为展开
               collapsed.classList.add('hidden');
               expanded.classList.remove('hidden');
               btn.classList.remove('is-collapsed');
               icon && (icon.style.transform = '');
-              localStorage.setItem(`friend-section-${key}`, 'expanded');
-            } else {
-              collapsed.classList.remove('hidden');
-              expanded.classList.add('hidden');
-              btn.classList.add('is-collapsed');
-              icon && (icon.style.transform = 'rotate(180deg)');
               localStorage.removeItem(`friend-section-${key}`);
             }
           }

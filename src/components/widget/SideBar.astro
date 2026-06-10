@@ -45,34 +45,46 @@ const isNormalPage = !isTocPage && !isGalleryRoute;
 <div id="sidebar" class:list={[className, "w-full"]}>
     <!-- 非正文页：显示简介卡片 -->
     {!isPostsRoute && !isGuestPostRoute &&
-    <div class="flex flex-col w-full gap-4 mb-4">
+    <div class="flex flex-col w-full gap-4 mb-4 onload-animation" data-widget-key="profile" style="animation-delay: calc(var(--content-delay))">
         <Profile></Profile>
     </div>
     }
-    
+
     <div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4">
         <!-- 普通页面：显示文章分类和标签卡片 -->
-        {isNormalPage && 
+        {isNormalPage &&
         <>
-            <Categories class="onload-animation" style="animation-delay: calc(var(--content-delay))"></Categories>
-            <Tag class="onload-animation" style="animation-delay: calc(var(--content-delay))"></Tag>
+            <div data-widget-key="categories" class="contents">
+                <Categories class="onload-animation" style="animation-delay: calc(var(--content-delay))"></Categories>
+            </div>
+            <div data-widget-key="tags" class="contents">
+                <Tag class="onload-animation" style="animation-delay: calc(var(--content-delay))"></Tag>
+            </div>
         </>
         }
-        
+
         <!-- 摄影页面：显示图片类别卡片 -->
-        {isGalleryRoute && 
-            <GalleryCategories class="onload-animation" style="animation-delay: calc(var(--content-delay))"></GalleryCategories>
+        {isGalleryRoute &&
+            <div data-widget-key="gallery-categories" class="contents">
+                <GalleryCategories class="onload-animation" style="animation-delay: calc(var(--content-delay))"></GalleryCategories>
+            </div>
         }
-        
+
         <!-- 正文页/about页：先 TOC（经纬），后系列卡（舆图）；同屏时 TOC 自动压成一半高 -->
-        {isTocPage && <TOCWidget headings={headings} compact={showSeries} class="onload-animation" style="animation-delay: calc(var(--content-delay))"></TOCWidget>}
+        {isTocPage && (
+            <div data-widget-key="toc" class="contents">
+                <TOCWidget headings={headings} compact={showSeries} class="onload-animation" style="animation-delay: calc(var(--content-delay))"></TOCWidget>
+            </div>
+        )}
         {isTocPage && showSeries && series && (
-            <SeriesWidget
-                posts={series.posts}
-                currentSlug={series.currentSlug}
-                class="onload-animation"
-                style="animation-delay: calc(var(--content-delay))"
-            />
+            <div data-widget-key="series" class="contents">
+                <SeriesWidget
+                    posts={series.posts}
+                    currentSlug={series.currentSlug}
+                    class="onload-animation"
+                    style="animation-delay: calc(var(--content-delay))"
+                />
+            </div>
         )}
     </div>
 </div>

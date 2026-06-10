@@ -491,8 +491,51 @@ const setup = () => {
 		// 重新获取按钮元素引用
 		backToTopBtn = document.getElementById('back-to-top-btn');
 		scrollToCommentBtn = document.getElementById('scroll-to-comment-btn');
+		// 新 sidebar 已注入 DOM：对照旧 widget 集合决定是否取消入场动画
+		reconcileSidebarWidgetAnimations();
 	})
+	let _prevSidebarWidgetKeys = new Set<string>();
+	function snapshotSidebarWidgetKeys() {
+		const keys = new Set<string>();
+		document.querySelectorAll<HTMLElement>('#sidebar [data-widget-key]').forEach((el) => {
+			const k = el.dataset.widgetKey;
+			if (k) keys.add(k);
+		});
+		_prevSidebarWidgetKeys = keys;
+	}
+	function reconcileSidebarWidgetAnimations() {
+		// #sidebar 容器自己也有 .onload-animation（MainGridLayout 传入的），
+		// 每次 swup 替换都会重跑「整体上浮」动画。Swup 切换后无条件取消容器本身的动画，
+		// 真正决定是否要"重新上浮"的事交给每个 widget wrapper 自己。
+		const sidebarEl = document.getElementById('sidebar');
+		if (sidebarEl) {
+			sidebarEl.classList.remove('onload-animation');
+			sidebarEl.style.animation = 'none';
+			sidebarEl.style.opacity = '1';
+			sidebarEl.style.transform = 'none';
+		}
+
+		document.querySelectorAll<HTMLElement>('#sidebar [data-widget-key]').forEach((wrapper) => {
+			const key = wrapper.dataset.widgetKey;
+			if (!key) return;
+			if (!_prevSidebarWidgetKeys.has(key)) return; // 新出现，保留入场动画
+			// 已存在的 widget：取消动画，避免重复"上浮"
+			const candidates: HTMLElement[] = [wrapper, ...Array.from(wrapper.querySelectorAll<HTMLElement>('.onload-animation'))];
+			candidates.forEach((el) => {
+				el.classList.remove('onload-animation');
+				el.style.animation = 'none';
+				el.style.opacity = '1';
+				el.style.transform = 'none';
+			});
+		});
+	}
+	// 初始页面加载时也记录一次，供首次 swup 切换比对
+	snapshotSidebarWidgetKeys();
+
 	window.swup.hooks.on('visit:start', (visit: {to: {url: string}}) => {
+		// 替换前快照当前 sidebar widget 集合
+		snapshotSidebarWidgetKeys();
+
 		// change banner height immediately when a link is clicked
 		const bodyElement = document.querySelector('body')
 		if (pathsEqual(visit.to.url, url('/'))) {
