@@ -23,6 +23,7 @@
 		"avatar": "/friends/sjh.jpg",
 		"category": "real",
 		"badge": "error",
+		"hidden": true,
 		"note": "jhgg，比我大一级的直系学长，本科 3 篇 CCF-A 的科研圣体。在热爱的路上步履不停，前途光明。"
 	},
 	{
@@ -294,7 +295,8 @@
 		"desc": "自由流动的树",
 		"avatar": "https://s2.loli.net/2025/12/25/qf3ZGRr6iuCgO2e.jpg",
 		"category": "online",
-		"badge": "stale"
+		"badge": "stale",
+		"hidden": true
 	},
 	{
 		"name": "ENCOM一号机",
@@ -429,6 +431,20 @@
 		"rss": "https://hanchan.vip/posts/feed.atom",
 		"desc": "I love you and I’m not an artist",
 		"avatar": "https://hanchan.vip/avatar.webp",
+		"category": "online"
+	},
+	{
+		"name": "CQ-Pedia",
+		"url": "https://cqpedia.cn/",
+		"desc": "Rigby 的重庆语言文化开放平台",
+		"avatar": "/friends/rigby.jpg",
+		"category": "real"
+	},
+	{
+		"name": "nuym's blog",
+		"url": "https://www.nuym.cn/",
+		"desc": "开出的是一片春光，落下的是一片春景",
+		"avatar": "https://www.nuym.cn/avatar.jpg",
 		"category": "online"
 	}
 

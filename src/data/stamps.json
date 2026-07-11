@@ -8,13 +8,13 @@
 	{
 		"type": "cool-sites",
 		"url": "https://www.geedea.pro",
-		"img": "https://www.geedea.pro/88x31.png",
+		"img": "/stamps/geek.png",
 		"alt": "Cool Button of geedea.pro"
 	},
 	{
 		"type": "cool-sites",
 		"url": "https://www.eltr.ac/",
-		"img": "https://www.eltr.ac/assets/88x31.webp",
+		"img": "/stamps/eltrac.webp",
 		"alt": "Cool Button of eltr.ac"
 	},
 	{
