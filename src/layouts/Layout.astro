@@ -746,8 +746,13 @@ if (window.swup) {
 			}
 			
 			// 设置初始透明度
+			// 注意：这里用内联 style 设置 transition，会完全覆盖该元素通过 CSS class
+			// 声明的 transition（例如 friends 页 88x31 stamp 的 `filter` hover 过渡）。
+			// 所以必须把可能需要的过渡属性一起列出，避免首次加载时把其他过渡"吃掉"，
+			// 导致刷新前 hover 效果是硬切、刷新后才生效（图片走 complete 分支不会覆盖 transition）。
 			img.style.opacity = '0';
-			img.style.transition = 'opacity 0.4s ease-in-out';
+			img.style.transition = 'opacity 0.4s ease-in-out, filter 0.2s ease';
+
 			
 			// 监听加载完成
 			img.addEventListener('load', function() {
