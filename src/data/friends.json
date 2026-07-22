@@ -382,6 +382,7 @@
 	{
 		"name": "資工小廢物 - JN",
 		"url": "https://blog.giveanornot.com/",
+		"rss": "https://blog.giveanornot.com/index.xml",
 		"desc": "資工系畢業，但其實沒有很會寫程式",
 		"avatar": "/friends/JN.png",
 		"category": "online"
