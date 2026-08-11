@@ -6,9 +6,9 @@ import Markdown from "@components/misc/Markdown.astro";
 import PageIntroCard from "@components/PageIntroCard.astro";
 import { Icon } from "astro-icon/components";
 import friends from "../data/friends.json";
+import { pageIntros } from "../data/page-intros";
 import stamps from "../data/stamps.json";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
-import { pageIntros } from "../data/page-intros";
 
 const intro = pageIntros.friends;
 
@@ -28,7 +28,7 @@ const friendsHeadings = [
 	{ depth: 2, slug: "friends-online", text: "☁️ 云间" },
 	{ depth: 2, slug: "friends-stash", text: "🌄 远望" },
 	{ depth: 2, slug: "friends-org", text: "🏛️ 同道" },
-	{ depth: 2, slug: "friends-stamps", text: "🏷️ 88x31 Stamps" },
+	{ depth: 2, slug: "friends-stamps", text: "🏷️ 88x31" },
 ];
 
 // 枚举映射：机器可读 -> 展示文案

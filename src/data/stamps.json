@@ -43,12 +43,6 @@
 	},
 	{
 		"type": "cool-sites",
-		"url": "https://dimden.dev/",
-		"img": "https://dimden.dev/services/images/88x31.gif",
-		"alt": "Cool button for net7.blog"
-	},
-	{
-		"type": "cool-sites",
 		"url": "https://1sle.xyz/",
 		"img": "/stamps/1sle.gif",
 		"alt": "Cool button for 1sle.xyz"
@@ -73,18 +67,6 @@
 	},
 	{
 		"type": "cool-sites",
-		"url": "https://lucida.to/",
-		"img": "/stamps/lucida.gif",
-		"alt": "Cool button for lucida.to"
-	},
-	{
-		"type": "cool-sites",
-		"url": "https://stupied.net/",
-		"img": "https://stupied.net/meta/button.png",
-		"alt": "Cool button for stupied.net"
-	},
-	{
-		"type": "cool-sites",
 		"url": "https://blog.mrcw.top/",
 		"img": "https://blog.mrcw.top/88x31.gif",
 		"alt": "Cool button for blog.mrcw.top"
@@ -106,6 +88,30 @@
 		"url": "https://www.luming.cool/",
 		"img": "/stamps/luming.gif",
 		"alt": "Cool button for luming.cool"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://www.lqq.ai/",
+		"img": "https://lqq.ai/assets/lqq-88x31.webp",
+		"alt": "Cool button for lqq.ai"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://dimden.dev/",
+		"img": "https://dimden.dev/services/images/88x31.gif",
+		"alt": "Cool button for dimden.dev"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://lucida.to/",
+		"img": "/stamps/lucida.gif",
+		"alt": "Cool button for lucida.to"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://stupied.net/",
+		"img": "https://stupied.net/meta/button.png",
+		"alt": "Cool button for stupied.net"
 	},
 	{
 		"type": "cool-sites",

@@ -447,6 +447,12 @@
 		"desc": "开出的是一片春光，落下的是一片春景",
 		"avatar": "https://www.nuym.cn/avatar.jpg",
 		"category": "online"
+	},
+	{
+		"name": "LQQ",
+		"url": "https://lqq.ai/",
+		"desc": "关于设计、技术与长期主义的个人记录",
+		"avatar": "/friends/LQQ.webp",
+		"category": "online"
 	}
-
 ]
