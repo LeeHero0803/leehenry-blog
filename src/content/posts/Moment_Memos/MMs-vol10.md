@@ -2,7 +2,7 @@
 title: "一封情书"
 published: 2026-08-19
 description: '愿你一切都好，在数不尽的明天。'
-image: ''
+image: 'MMs-vol10/cover.jpg'
 tags: [💕呼唤爱]
 category: 瞬间备忘录
 draft: false
