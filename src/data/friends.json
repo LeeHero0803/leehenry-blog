@@ -350,7 +350,7 @@
 	},
 	{
 		"name": "Cytrogen",
-		"url": "https://cytrogen.icu/",
+		"url": "https://blog.cytrogen.icu/",
 		"rss": "https://blog.cytrogen.icu/atom.xml",
 		"desc": "万圣节恶魔的领地",
 		"avatar": "https://blog.cytrogen.icu/favicon.png",
@@ -453,6 +453,13 @@
 		"url": "https://lqq.ai/",
 		"desc": "关于设计、技术与长期主义的个人记录",
 		"avatar": "/friends/LQQ.webp",
+		"category": "online"
+	},
+	{
+		"name": "HongLiu 的小站",
+		"url": "https://hongliu.icu",
+		"desc": "做自己所爱的事，爱自己所做的事",
+		"avatar": "https://hongliu.icu/image/avator_1.jpg",
 		"category": "online"
 	}
 ]

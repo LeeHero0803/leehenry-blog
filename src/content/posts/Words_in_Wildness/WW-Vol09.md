@@ -41,7 +41,7 @@ category: 野语不成篇
 
 一些在别处相对较为深刻的讨论，以后会汇总到「信号」的栏目之下。来源会比较不拘一格，有时候是在站外的讨论区，有时候是在友人的聊天框。
 
-### Re: 写作时应该加上「我觉得」吗
+### Re：写作时应该加上「我觉得」吗
 
 > 刚开始写作时，这是我的最坏习惯。这种废话只会让读者疲惫不堪。在观点文章中任何地方加上「我认为」都是多余的。
 >
@@ -78,7 +78,7 @@ category: 野语不成篇
 
 **W 君**：不过就算写了「我想」，也不会让论点的传输发生歧义吧，顶多是让文章变得有些冗长或繁琐。加了我想，算是软化文风，有些话语不太适合斩钉截铁地说。比如：「我想，人也是如此」和「人也是如此」，前者节奏更慢，同时更柔软，如果不是要发出一句振聋发聩的口号，写「我想」也挺好的。
 
-**伏枥**：是，我读完之后觉得（我发现我不用「我觉得」好像真的没法好好说话）核心不在于观点有没有传达到，而是在于自己对自己观点是否抱有自信的捍卫姿态。「也许」「大概」的用词，背后来自于没有真的深入学习、不求甚解，并且安于这种姿态。
+**伏枥**：是，我读完之后觉得（~~我发现我不用「我觉得」好像真的没法好好说话~~）核心不在于观点有没有传达到，而是在于自己对自己观点是否抱有自信的捍卫姿态。「也许」「大概」的用词，背后来自于没有真的深入学习、不求甚解，并且安于这种姿态。
 
 **W 君**：这一处我就比较赞成，是还是不是，去查证一下嘛！
 
@@ -128,7 +128,7 @@ category: 野语不成篇
 
 **W 君**：时刻精进自己，好！
 
-### Re: RE：断层里的心理学
+### Re：RE：断层里的心理学
 
 > 📰 *Link*: [RE：断层里的心理学 - Cytrogen](https://blog.cytrogen.icu/posts/221a.html)
 
@@ -148,7 +148,7 @@ category: 野语不成篇
 
 2. 在向别人介绍和解释事情，或者说高效沟通的一个前提是「拉齐共识」，而拉齐共识的重要一步，就是让彼此的对上下文知识的了解对齐。很多想当然认为是常识的东西，可能对方并不理解，如果不做好这一步，就会对沟通和交流带来很多困扰和阻碍。
 
-### Re: 我们一天都没有聊些诗意的东西
+### Re：我们一天都没有聊些诗意的东西
 
 > 📰 *Link*: [我们一天也没有聊点诗意的东西 - 金色河流](https://goldenriver.site/posts/we-spoke-no-poetry/)
 
@@ -216,7 +216,7 @@ category: 野语不成篇
 
 **伏枥**：感谢推荐！听起来不错，我有空看看~
 
-### Talk: 人的本性是天生的吗？
+### Talk：人的本性是天生的吗？
 
 心理学一直试图研究一个人种种心理特性，到底是由先天的，还是因为环境塑造的，由此产生了旷日持久的「先天」与「后天」之争。在 19~20 世纪的时候，美国的心理学主要观点就是人的行为由环境塑造，也就是行为主义。这个观念也或多或少的延续到现在，就是大家都以为环境可以塑造一个人。
 
@@ -248,7 +248,7 @@ category: 野语不成篇
 
 **伏枥**：能改变的东西比想象中的还要少，不仅对于这个世界还是对于自己。
 
-### Talk: 草台班子和政治过家家
+### Talk：草台班子和政治过家家
 
 > 很多时候，我们满怀期待地去寻找某种专业精神，最后却发现，对方只是在一个看似高级的舞台上，勉强维持着一种不出大错的表演而已。这不禁让人思考，是我们对这个世界的专业度期待太高了，还是这个世界的本质本就如此匆忙而粗糙。
 >
@@ -286,7 +286,7 @@ category: 野语不成篇
 
 或许不是正确和错误的问题，而是视角问题。
 
-### Talk: 为什么伟大不能被计划
+### Talk：为什么伟大不能被计划
 
 > 最近读了《为什么伟大不能被计划》。本书从根本上质疑「目标导向」的思维和社会文化，很有启发。 很少有成功人士的职业生涯是规划出来的。很少有伟大的发明和成就是计划出来的。这不仅是统计学结果，本书认为「将某个伟大的成果设立为目标」这种「目标主义」在根本上是错误和误导的。
 >
@@ -317,7 +317,7 @@ category: 野语不成篇
 
 总之从个人经验上，我从这种「新奇式搜索」受益良多。
 
-### Talk: 从仲树到牛来
+### Talk：从仲树到牛来
 
 **W 君**：关于仲树，我既不了解她也不了解她的学术，只能发表一些偏见了。
 
@@ -329,7 +329,7 @@ category: 野语不成篇
 
 **伏枥**：就现在仲树的评论区来看，她的支持者很大一部分是有独立思考和思辨能力的，对于这件事情，因为触及到了她作为知识分子的立身之本（学术诚信），所以能够相对客观地认识到这件事情的严重性，审视自己之前对她的关注与喜欢。狂信的言论我目前没有看到很多。
 
-就我听这么久她的播客来说，其实它涉及到很专业的文史分析、时政评论，我很难听得下去，真正吸引我的反而是他那些取材于真实生活以及运动经历，发源于普世价值观的一些经历分享与方法论总结。而我相信很多听众也是因为她的闲聊播客而开始去听他的。通过这些其实可以感受到她对生活有着敏锐的观察与总结能力与表达能力，我是相信她具备这样的能力的。
+就我听这么久她的播客来说，其实她涉及到很专业的文史分析、时政评论，我很难听得下去，真正吸引我的反而是她那些取材于真实生活以及运动经历，发源于普世价值观的一些经历分享与方法论总结。而我相信很多听众也是因为她的闲聊播客而开始去听他的。通过这些其实可以感受到她对生活有着敏锐的观察与总结能力与表达能力，我是相信她具备这样的能力的。
 
 我能理解 [Eltrac 的心情](https://www.geedea.pro/weekly/95/#%E4%BB%B2%E6%A0%91%E8%AE%A9%E6%88%91%E5%8F%8D%E6%80%9D%E6%92%AD%E5%AE%A2%E8%BF%99%E4%B8%80%E5%AA%92%E4%BB%8B)。我目前听播客的习惯来自于她，也局限于她。其他的对谈性质的播客我有尝试听了一些，但是听《独树不成林》后确实有一种「除却巫山不是云」的感觉 —— 其他的博客要么内容比较空洞，要么信息量过于稀疏，要么单纯就比较无聊。仲树的播客会让我在一些双手被占用，但大脑空闲的时候，有一些听力上的电子榨菜，当我生活的这样一部分知识养料被摧毁，确实会有一些沮丧和难过。
 
@@ -428,12 +428,12 @@ RIME 是完全本地的输入法引擎，杜绝了一切弹窗的侵入，配合
 
 不过目前遇到的问题是有些候选词的优先级比较诡异，一些专业词汇有所缺失（比如「信效度」），在我连续打出很多词语组成的长句时容易出现混乱。还是需要调教磨合一段时间。
 
-一个和搜狗输入法与众多手机输入法的重要功能缺失在于，RIME 不会根据你已经上屏的内容展开联想（举例来说，一些输入法在你打出「张」之后，再打出「zheng'yue」后第一个候选词是「震岳」）这对打字效率的提升很有用。
+区别于搜狗输入法与众多手机输入法，RIME 的一项重要功能缺失在于，RIME 不会根据你已经上屏的内容展开联想 —— 举例来说，一些输入法在你打出「张」之后，再打出「zheng'yue」第一个候选词是「震岳」。这样的联想功能对打字效率和准确率的提升很大。
 
 > 安装配置参考了以下文章：
 >
-> - [RIME + 雾凇拼音，打造绝佳的开源文字输入体验 - 爱拼安小匠 | 少数派](https://sspai.com/post/89281)
-> - [Rime 配置：雾凇拼音 - Dvel's Blog](https://dvel.me/posts/rime-ice/)
+> - 📰 *Link*: [RIME + 雾凇拼音，打造绝佳的开源文字输入体验 - 爱拼安小匠 | 少数派](https://sspai.com/post/89281)
+> - 📰 *Link*: [Rime 配置：雾凇拼音 - Dvel's Blog](https://dvel.me/posts/rime-ice/)
 
 ### 平面构成深入浅出教程
 
@@ -445,9 +445,9 @@ RIME 是完全本地的输入法引擎，杜绝了一切弹窗的侵入，配合
 >
 > 在创作过程中熟知并掌握运用构成是非常重要的一项基本能力。
 >
-> - 绘画领域中的平面：[微博正文 - Suka_lazeri | 微博](https://weibo.com/2806441054/MnQ8Tstbe)
-> - 绘画中平面构成的点、线、面：[微博正文 - Suka_lazeri | 微博](https://weibo.com/2806441054/NyC8yw6A4)
-> - 绘画中构图构成要素：组合、阵列、分割：[微博正文 - Suka_lazeri | 微博](https://weibo.com/2806441054/OjfwmyrRv)
+> - 绘画领域中的平面：🗯 [微博正文 - Suka_lazeri | 微博](https://weibo.com/2806441054/MnQ8Tstbe)
+> - 绘画中平面构成的点、线、面：🗯 [微博正文 - Suka_lazeri | 微博](https://weibo.com/2806441054/NyC8yw6A4)
+> - 绘画中构图构成要素：组合、阵列、分割：🗯 [微博正文 - Suka_lazeri | 微博](https://weibo.com/2806441054/OjfwmyrRv)
 
 ### 软件工程相关的定律
 
@@ -533,7 +533,7 @@ CARI（消费美学研究所） 的美学风格索引，记录了1970 年代至�
 >
 >互联网上令人愉悦的部分，似是由人而非算法精心维护。如果我的文字想要在这片网络世界找到同行者，我就需要对信息的流动方式有一个大致的了解。大致如下：信息从网络边缘汇向中心，这是一股疾如风的信息洪流。在那之后，信息缓慢而坚定地重返边缘。
 >
->📰 *Ref*: [ 一篇博文：一道寻找同类的冗长而复杂的搜索指令，指引有趣的人与事汇入你的收件箱 | 知乎](https://zhuanlan.zhihu.com/p/1993727469031793581) · [A blog post is a very long and complex search query to find fascinating people and make them route interesting stuff to your inbox - Henrik Karlsson](https://www.henrikkarlsson.xyz/p/search-query)
+>📰 *Link*: [ 一篇博文：一道寻找同类的冗长而复杂的搜索指令，指引有趣的人与事汇入你的收件箱 | 知乎](https://zhuanlan.zhihu.com/p/1993727469031793581) · [A blog post is a very long and complex search query to find fascinating people and make them route interesting stuff to your inbox - Henrik Karlsson](https://www.henrikkarlsson.xyz/p/search-query)
 
 ### 一些饱受误解的糟糕翻译
 
@@ -547,7 +547,7 @@ CARI（消费美学研究所） 的美学风格索引，记录了1970 年代至�
 >
 > 顺带一提，Autism 是神经差异（Neurodivergent）群体中接受度比较高的类型，因为这些人在计算机和技术领域表现出非常明显的优势。
 >
-> 🗯 *Ref*: [Post details - Eltrac | Eucalyptus](https://akk.eltr.ac/@eltrac/posts/B66ihXFdComY3l2XMe)
+> 🗯 *Link*: [Post details - Eltrac | Eucalyptus](https://akk.eltr.ac/@eltrac/posts/B66ihXFdComY3l2XMe)
 
 > **OS（Off‑Screen）**其实是**画内音**，台词的声源依旧在镜头场景之中，只是人物暂时没出现在画面里。而 **VO（Voice‑Over）**才是大家更熟悉的**画外音**，指的是角色不在画面内的旁白，常用来演绎角色的内心独白。
 >
@@ -592,7 +592,7 @@ CARI（消费美学研究所） 的美学风格索引，记录了1970 年代至�
 >
 > 你要保护好你的个人项目，那里是你的好奇心所在，是你进行实验的地方，也是你定义自己为创造者而非仅仅是雇员的地方。公司会教会你怎么写经得起时间考验的代码，但只有你的个人项目，才能确保你始终保持对代码的热情。
 >
-> 📰 *Ref*: [Protect Your Shed - dbut2](https://dylanbutler.dev/blog/protect-your-shed/) | [科技爱好者周刊 No.395  - 阮一峰](http://www.ruanyifeng.com/blog/2026/05/weekly-issue-395.html)
+> 📰 *Link*: [Protect Your Shed - dbut2](https://dylanbutler.dev/blog/protect-your-shed/) · [科技爱好者周刊 No.395  - 阮一峰](http://www.ruanyifeng.com/blog/2026/05/weekly-issue-395.html)
 
 #### 打开你的木工坊
 
@@ -604,7 +604,7 @@ CARI（消费美学研究所） 的美学风格索引，记录了1970 年代至�
 >
 > 由此推论：在互联网上，最容易被注意到的是那些不停说话的人。
 >
-> 📰 *Ref*: [Work with the garage door up - Andy](https://notes.andymatuschak.org/Work_with_the_garage_door_up) | [科技爱好者周刊 No.395 - 阮一峰](http://www.ruanyifeng.com/blog/2026/05/weekly-issue-395.html)
+> 📰 *Link*: [Work with the garage door up - Andy](https://notes.andymatuschak.org/Work_with_the_garage_door_up) · [科技爱好者周刊 No.395 - 阮一峰](http://www.ruanyifeng.com/blog/2026/05/weekly-issue-395.html)
 
 ### AI Related
 
@@ -617,7 +617,7 @@ CARI（消费美学研究所） 的美学风格索引，记录了1970 年代至�
 >
 > 不止是作者在用爱付出，读者也在消耗他们的生命来阅读。所以，「努力」本身就应当是对等的。请清晰地标注文章中的 AI 含量，否则博客圈也会像任何 [柠檬市场](https://immarcus.com/blog/enshittification-and-market-for-lemons) 一样走向崩坏。
 >
-> 📰 *Ref*: [AI 对等法则 - Marcus](https://immarcus.com/blog/ai-reciprocal-rules/)
+> 📰 *Link*: [AI 对等法则 - Marcus](https://immarcus.com/blog/ai-reciprocal-rules/)
 
 #### 杀死那个写代码的人
 
@@ -637,7 +637,7 @@ CARI（消费美学研究所） 的美学风格索引，记录了1970 年代至�
 >
 > 当遇到线上故障、复杂边界、性能瓶颈，那种 AI 多次尝试都解决不了的问题，过去积累的经验训练出来的人类工程师的直觉显得尤为重要。
 >
-> 🔗 *Ref*: [杀死那个写代码的人 - windliang](https://windliang.wang/2026/03/31/杀死那个写代码的人/)
+> 📰 *Link*: [杀死那个写代码的人 - windliang](https://windliang.wang/2026/03/31/杀死那个写代码的人/)
 
 ## ✲ · 脉冲 Spark
 
@@ -665,34 +665,34 @@ CARI（消费美学研究所） 的美学风格索引，记录了1970 年代至�
 
 > ***See Also***
 >
-> 📰 [宿命论与自由意志 - Tincts](/guests/tincts/fatalism/)
+> 📰 *Link*: [宿命论与自由意志 - Tincts](/guests/tincts/fatalism/)
 
 > ***Refs***
 >
 > 开始了解关于荣格的背景知识以及和MBTI的关联来自这篇文章，认识到「下意识使用的认知功能是先天的，不会改变」
 >
-> - [稻草人周刊 Vol.61 - Eltrac](https://www.geedea.pro/weekly/61/#不要觉得自己的-mbti-会变)
+> - 📰 [稻草人周刊 Vol.61 - Eltrac](https://www.geedea.pro/weekly/61/#不要觉得自己的-mbti-会变)
 >
 > 读了这篇文章之后，我在想以前的 16 人格的测试结果看来不能真实的反映自己。于是我分别在这两个地方做了基于荣格的测试，结果令我困惑：
 >
-> - [Totypes性格测试](https://totypes.com/)
->   - 这个网站我测试的结果排序是：Ti Fi Se Ne Fe Si Te Ni
-> - [荣格斯第二代认知功能测试 — JUNGUS](https://www.jungus.cn/zh-hans/test)
->   - 这个网站我的结果排序是：Fe Ti Se Ne Ni Te Fi Si
+> - 🌐 [Totypes性格测试](https://totypes.com/)
+>   - 这个网站我测试的结果排序是：`Ti Fi Se Ne Fe Si Te Ni`
+> - 🌐 [荣格斯第二代认知功能测试 - JUNGUS](https://www.jungus.cn/zh-hans/test)
+>   - 这个网站我的结果排序是：`Fe Ti Se Ne Ni Te Fi Si`
 >
 > 再后来发现一个新的网站，综合了很多主流测评手段，通过一份问卷可以得到多种人格框架下的结果。我没做这份问卷，但是这个网站提供了关于这个理论的很多背景信息。
 >
-> - [Sakinorva认知功能域测试](https://sakinorva.net/test/function_bunya?lang=zh&_wv=1#google_vignette)
+> - 🌐 [Sakinorva认知功能域测试](https://sakinorva.net/test/function_bunya?lang=zh&_wv=1#google_vignette)
 >
 > 这个网站立场文章的核心观点是「认知功能不存在」。文章考据荣格到 MBTI 的来龙去脉，论证荣格理论为什么不足够可靠：
 >
-> - [full context: the cognitive functions](https://sakinorva.net/library/contextualizing_functions)
+> - 📰 [full context: the cognitive functions](https://sakinorva.net/library/contextualizing_functions)
 >
 > 最后，So!azy 关于 MBTI 和荣格八维有一个专题系列笔记，我在过程中当作辅助理解的参考：
 >
-> - [十六型人格之凯尔西气质分类法 - So!azy](https://blog.solazy.me/mbti-1/)
-> - [MBTI 与各功能及组合 - So!azy](https://blog.solazy.me/mbti-2/)
-> - [MBTI 与荣格八维笔记 - So!azy](https://blog.solazy.me/mbti-3/)
+> - 📰 [十六型人格之凯尔西气质分类法 - So!azy](https://blog.solazy.me/mbti-1/)
+> - 📰 [MBTI 与各功能及组合 - So!azy](https://blog.solazy.me/mbti-2/)
+> - 📰 [MBTI 与荣格八维笔记 - So!azy](https://blog.solazy.me/mbti-3/)
 
 ### 切片二：播客
 
