@@ -11,6 +11,7 @@ import type { LIGHT_DARK_MODE } from "@/types/config.ts";
 
 const seq: LIGHT_DARK_MODE[] = [LIGHT_MODE, DARK_MODE, AUTO_MODE];
 let mode: LIGHT_DARK_MODE = $state(AUTO_MODE);
+let transitionSequence = 0;
 
 onMount(() => {
 	mode = getStoredTheme();
@@ -30,23 +31,54 @@ function getToggleBtnCenter() {
 }
 
 function applyWithTransition(newMode: LIGHT_DARK_MODE) {
-	const { x, y } = getToggleBtnCenter();
-	const maxRadius = Math.hypot(
-		Math.max(x, window.innerWidth - x),
-		Math.max(y, window.innerHeight - y),
-	);
-	document.documentElement.style.setProperty("--theme-x", `${x}px`);
-	document.documentElement.style.setProperty("--theme-y", `${y}px`);
-	document.documentElement.style.setProperty(
-		"--theme-radius",
-		`${maxRadius}px`,
-	);
-
-	if (typeof document.startViewTransition !== "function") {
+	if (
+		typeof document.startViewTransition !== "function" ||
+		window.matchMedia("(prefers-reduced-motion: reduce)").matches
+	) {
 		setTheme(newMode);
 		return;
 	}
-	document.startViewTransition(() => setTheme(newMode));
+
+	const { x, y } = getToggleBtnCenter();
+	const { innerWidth, innerHeight } = window;
+	const maxRadius = Math.hypot(
+		Math.max(x, innerWidth - x),
+		Math.max(y, innerHeight - y),
+	);
+	const xPercent = (x / innerWidth) * 100;
+	const yPercent = (y / innerHeight) * 100;
+	const radiusPercent =
+		(maxRadius / (Math.hypot(innerWidth, innerHeight) / Math.SQRT2)) *
+		105;
+	const sequence = ++transitionSequence;
+	const root = document.documentElement;
+	const clearTransitionState = () => {
+		if (sequence === transitionSequence) {
+			root.classList.remove("theme-transitioning");
+		}
+	};
+
+	root.classList.add("theme-transitioning");
+	const transition = document.startViewTransition(() => setTheme(newMode));
+	transition.ready.then(
+		() => {
+			clearTransitionState();
+			root.animate(
+				{
+					clipPath: [
+						`circle(0% at ${xPercent}% ${yPercent}%)`,
+						`circle(${radiusPercent}% at ${xPercent}% ${yPercent}%)`,
+					],
+				},
+				{
+					duration: 450,
+					easing: "ease-out",
+					pseudoElement: "::view-transition-new(root)",
+				},
+			);
+		},
+		clearTransitionState,
+	);
 }
 
 function switchScheme(newMode: LIGHT_DARK_MODE) {
